@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spiral Breath — Every breath leaves a trace.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --black:#020205;
+  --deep:#06060f;
+  --surface:#0c0c1a;
+  --cyan:#00d4c8;
+  --cyan-lo:#00a89e;
+  --gold:#c8a84b;
+  --gold-lo:#9a7c32;
+  --violet:#7b5ea7;
+  --green:#4cba68;
+  --text:#f0ede4;
+  --muted:#a8a49a;
+  --dim:#5a5852;
+  --border:rgba(200,168,75,0.1);
+}
+body{
+  background:var(--black);
+  color:var(--text);
+  font-family:'Rajdhani',sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* ── TYPOGRAPHY ── */
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:300;}
+h1{font-size:clamp(3.2rem,5.5vw,6.4rem);line-height:.95;letter-spacing:-.01em;}
+h2{font-size:clamp(2rem,3.8vw,3.8rem);line-height:1;letter-spacing:-.01em;}
+h3{font-size:clamp(1.4rem,2vw,2rem);line-height:1.1;}
+em{color:var(--gold);font-style:italic;}
+.serif{font-family:'Cormorant Garamond',serif;}
+.eyebrow{font-size:1.06rem;letter-spacing:.45em;text-transform:uppercase;color:var(--cyan-lo);}
+.body{font-family:'Cormorant Garamond',serif;font-size:1.44rem;color:var(--muted);line-height:1.8;font-weight:300;}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1280px;margin:0 auto;padding:0 4rem;}
+.wrap-sm{max-width:860px;margin:0 auto;padding:0 4rem;}
+.wrap-xs{max-width:640px;margin:0 auto;padding:0 4rem;}
+
+/* ── SPACING SYSTEM — tight and purposeful ── */
+/* Apple uses ~80px between major sections, 24-40px internally */
+.sec{padding:5rem 4rem;}
+.sec-lg{padding:7rem 4rem;}
+.sec-sm{padding:3.5rem 4rem;}
+.sec-xs{padding:2rem 4rem;}
+
+/* ── BUTTONS ── */
+.btn{font-family:'Rajdhani',sans-serif;font-size:0.93rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;display:inline-block;text-decoration:none;transition:all .3s;cursor:pointer;border:none;padding:.85rem 2rem;}
+.btn-primary{color:var(--black);background:var(--cyan);}
+.btn-primary:hover{background:#00f0e4;box-shadow:0 0 40px rgba(0,212,200,.3);}
+.btn-ghost{color:var(--gold);background:transparent;border:.5px solid rgba(200,168,75,.35);}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(200,168,75,.05);}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;transition:all .4s;}
+nav.scrolled{background:rgba(2,2,5,.95);backdrop-filter:blur(20px);border-bottom:.5px solid rgba(255,255,255,.04);}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;}
+.nav-logo img{width:42px;height:42px;object-fit:cover;border-radius:5px;}
+.nav-logo-text{font-family:'Rajdhani',sans-serif;font-size:1.4rem;letter-spacing:.30em;text-transform:uppercase;color:var(--text);}
+.nav-logo-text b{color:var(--cyan);font-weight:400;}
+.nav-links{display:flex;gap:2.4rem;list-style:none;}
+.nav-links a{font-size:1.17rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-cta{font-family:'Rajdhani',sans-serif;font-size:1.13rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--black);background:var(--cyan);padding:.65rem 1.5rem;text-decoration:none;transition:all .3s;}
+.nav-cta:hover{background:#00f0e4;}
+
+/* ── PHONE DEVICE ── */
+.device{position:relative;display:inline-block;}
+.device img{display:block;width:100%;border-radius:44px;box-shadow:0 32px 80px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.06);}
+.device-cyan::before{content:'';position:absolute;inset:0;border-radius:44px;box-shadow:0 0 60px rgba(0,212,200,.15);pointer-events:none;}
+.device-gold::before{content:'';position:absolute;inset:0;border-radius:44px;box-shadow:0 0 60px rgba(200,168,75,.15);pointer-events:none;}
+.device-violet::before{content:'';position:absolute;inset:0;border-radius:44px;box-shadow:0 0 60px rgba(123,94,167,.2);pointer-events:none;}
+.device-red::before{content:'';position:absolute;inset:0;border-radius:44px;box-shadow:0 0 60px rgba(220,80,60,.15);pointer-events:none;}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease;}
+.reveal.in{opacity:1;transform:none;}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.40s}
+.from-left{opacity:0;transform:translateX(-32px);transition:opacity .9s ease,transform .9s ease;}
+.from-right{opacity:0;transform:translateX(32px);transition:opacity .9s ease,transform .9s ease;}
+.from-left.in,.from-right.in{opacity:1;transform:none;}
+
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:0;
+  padding:0 4rem;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 70% at 65% 50%,rgba(200,168,75,.06) 0%,transparent 60%),
+             radial-gradient(ellipse 50% 50% at 30% 80%,rgba(0,212,200,.04) 0%,transparent 60%);
+}
+canvas#hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.35;}
+.hero-left{position:relative;z-index:2;padding-top:5.5rem;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  margin-bottom:1.6rem;
+  opacity:0;animation:fadeUp .8s .1s forwards;
+}
+.hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:blink 2.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.4;}}
+.hero-eyebrow-label{font-size:1.01rem;letter-spacing:.32em;text-transform:uppercase;color:var(--cyan-lo);}
+.hero-h1{opacity:0;animation:fadeUp .9s .25s forwards;margin-bottom:1.2rem;}
+.hero-body{
+  font-family:'Cormorant Garamond',serif;font-size:1.46rem;color:var(--muted);
+  line-height:1.75;max-width:400px;
+  opacity:0;animation:fadeUp .8s .45s forwards;
+  margin-bottom:1.8rem;
+}
+.hero-btns{display:flex;gap:.75rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .6s forwards;}
+.hero-stat-row{
+  display:flex;gap:2rem;margin-top:2rem;padding-top:1.5rem;
+  border-top:.5px solid rgba(255,255,255,.07);
+  opacity:0;animation:fadeUp .8s .8s forwards;
+}
+.hero-stat{display:flex;flex-direction:column;gap:.15rem;}
+.hero-stat-n{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--text);line-height:1;}
+.hero-stat-l{font-size:0.85rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
+.hero-right{
+  position:relative;z-index:2;
+  display:flex;justify-content:center;align-items:center;
+  padding-top:5.5rem;
+}
+.hero-phone{width:min(385px,75%);opacity:0;animation:fadeUp 1s .4s forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+
+/* ── TICKER ── */
+.ticker{overflow:hidden;background:var(--deep);border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);padding:.75rem 0;}
+.ticker-track{display:flex;gap:2.5rem;white-space:nowrap;animation:tick 32s linear infinite;}
+.ticker-item{font-size:0.95rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);flex-shrink:0;}
+.ticker-item span{color:var(--cyan-lo);margin-right:.4rem;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── STATEMENT (full bleed, centered) ── */
+.statement{
+  padding:5.5rem 4rem;
+  text-align:center;position:relative;overflow:hidden;
+  background:var(--deep);
+  border-top:.5px solid var(--border);
+  border-bottom:.5px solid var(--border);
+}
+.statement::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(0,212,200,.03) 0%,transparent 70%);
+}
+.statement h2{max-width:820px;margin:0 auto 1rem;position:relative;}
+.statement .body{max-width:580px;margin:0 auto;position:relative;}
+
+/* ── FIRST SPIRAL — journey intro ── */
+.spiral-intro{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;
+  border-bottom:.5px solid var(--border);
+}
+.spiral-text{
+  padding:5rem 4rem;
+  border-right:.5px solid var(--border);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.spiral-phases{padding:5rem 4rem;background:var(--deep);}
+.phase-row{
+  display:flex;gap:1.2rem;align-items:flex-start;
+  padding:1.1rem 0;border-bottom:.5px solid rgba(255,255,255,.05);
+}
+.phase-row:first-of-type{border-top:.5px solid rgba(255,255,255,.05);}
+.phase-num{
+  font-family:'Cormorant Garamond',serif;font-size:1.86rem;font-weight:300;
+  color:var(--gold-lo);line-height:1;flex-shrink:0;min-width:2rem;
+}
+.phase-body{}
+.phase-name{font-size:0.82rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text);margin-bottom:.2rem;}
+.phase-desc{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--muted);line-height:1.5;}
+.free-forever-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(76,186,104,.07);
+  border:.5px solid rgba(76,186,104,.25);
+  padding:.3rem .9rem;
+  margin-bottom:1.2rem;
+}
+.free-forever-tag span{font-size:0.95rem;letter-spacing:.3em;text-transform:uppercase;color:var(--green);}
+
+/* ── JOURNEYS GRID ── */
+.journeys-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,255,255,.04);
+}
+.j-card{
+  background:var(--black);padding:1.8rem 1.6rem;
+  transition:background .3s;
+}
+.j-card:hover{background:var(--surface);}
+.j-free{background:rgba(76,186,104,.04)!important;border:.5px solid rgba(76,186,104,.15)!important;}
+.j-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--text);margin-bottom:.3rem;}
+.j-meta{font-size:0.92rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.j-badge{
+  display:inline-block;font-size:0.78rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:.2rem .55rem;margin-top:.5rem;
+}
+.j-badge-free{color:var(--green);border:.5px solid rgba(76,186,104,.3);background:rgba(76,186,104,.05);}
+.j-badge-plus{color:var(--cyan-lo);border:.5px solid rgba(0,212,200,.2);background:rgba(0,212,200,.03);}
+.j-more{
+  background:var(--deep)!important;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;min-height:100px;
+}
+.j-more .j-name{color:var(--dim);font-style:italic;font-size:1.26rem;}
+
+/* ── COHERENCE / LIVE SESSION ── */
+.live-split{
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:0;
+  border-bottom:.5px solid var(--border);
+}
+.live-phones{
+  padding:4rem;
+  background:var(--deep);
+  border-right:.5px solid var(--border);
+  display:flex;gap:1.5rem;justify-content:center;align-items:flex-end;
+}
+.live-text{padding:4rem;}
+.score-display{
+  display:flex;align-items:baseline;gap:.5rem;margin:1.5rem 0;
+}
+.score-n{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:var(--cyan);line-height:1;}
+.score-label{font-size:1.02rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);}
+.score-rows{display:flex;flex-direction:column;gap:0;}
+.score-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.65rem 0;border-bottom:.5px solid rgba(255,255,255,.05);
+}
+.score-row:first-child{border-top:.5px solid rgba(255,255,255,.05);}
+.score-key{font-size:1.14rem;color:var(--muted);}
+.score-val{font-size:1.14rem;letter-spacing:.08em;color:var(--text);}
+
+/* ── SIGILS — geometry section ── */
+.sigil-section{padding:5rem 0;overflow:hidden;}
+.sigil-header{text-align:center;padding:0 4rem;margin-bottom:3rem;}
+.sigil-row{
+  display:flex;gap:0;justify-content:center;
+  background:var(--deep);
+  border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);
+}
+.sigil-item{
+  flex:1;padding:3rem 1.2rem 2rem;text-align:center;
+  border-right:.5px solid rgba(255,255,255,.04);
+  transition:background .3s;
+  position:relative;
+}
+.sigil-item:last-child{border-right:none;}
+.sigil-item:hover{background:rgba(0,212,200,.02);}
+.sigil-img{
+  width:220px;height:220px;border-radius:0;
+  object-fit:cover;object-position:center;
+  display:block;margin:0 auto 1rem;
+  box-shadow:0 0 60px rgba(0,0,0,.8),0 0 30px rgba(0,212,200,.06);
+  transition:transform .6s,filter .6s;
+}
+.sigil-item:hover .sigil-img{transform:scale(1.08);filter:brightness(1.12) saturate(1.1);}
+.sigil-preset{font-size:0.95rem;letter-spacing:.14em;color:var(--muted);margin-bottom:.2rem;}
+.sigil-hz{font-size:0.89rem;letter-spacing:.1em;color:var(--muted);}
+
+/* ── SIGIL MATH — one definitive section ── */
+.math-section{padding:5rem 4rem;background:var(--deep);border-top:.5px solid var(--border);}
+.math-intro{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:end;margin-bottom:3rem;
+}
+.math-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:1px;background:rgba(255,255,255,.04);
+}
+.math-card{background:var(--black);padding:1.6rem 1.4rem;transition:background .3s;}
+.math-card:hover{background:var(--surface);}
+.math-n{font-size:0.79rem;letter-spacing:.3em;color:var(--muted);margin-bottom:.6rem;}
+.math-name{font-size:0.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text);margin-bottom:.6rem;line-height:1.4;}
+.math-desc{font-family:'Cormorant Garamond',serif;font-size:1.17rem;color:var(--muted);line-height:1.7;}
+.math-formula{
+  font-size:0.8rem;color:var(--cyan-lo);font-family:monospace;
+  padding:.4rem .6rem;background:rgba(0,212,200,.04);
+  border-left:1.5px solid rgba(0,212,200,.2);
+  line-height:1.7;margin-top:.5rem;
+}
+
+/* ── TONES ── */
+.tone-section{padding:4rem;text-align:center;}
+.tone-intro{max-width:560px;margin:0 auto 2.5rem;}
+.freq-wrap{max-width:1100px;margin:0 auto;}
+.freq-label{
+  font-size:0.92rem;letter-spacing:.32em;text-transform:uppercase;
+  text-align:left;padding:.5rem .8rem;margin-bottom:1px;
+}
+.freq-label-free{color:var(--gold-lo);border-left:2px solid var(--gold-lo);}
+.freq-label-plus{color:var(--violet);border-left:2px solid var(--violet);margin-top:1rem;}
+.freq-grid{display:grid;gap:1px;background:rgba(255,255,255,.04);margin-bottom:2px;}
+.freq-grid-free{grid-template-columns:repeat(2,1fr);}
+.freq-grid-plus{grid-template-columns:repeat(6,1fr);}
+.freq-cell{padding:1.4rem .5rem;transition:background .3s;}
+.freq-cell:hover{background:var(--surface);}
+.freq-hz{font-family:'Cormorant Garamond',serif;font-size:1.66rem;font-weight:300;margin-bottom:.2rem;}
+.freq-cell-free .freq-hz{color:var(--gold);}
+.freq-cell-plus .freq-hz{color:rgba(123,94,167,.85);font-size:1.66rem;}
+.freq-cell-free{background:var(--deep);}
+.freq-cell-plus{background:var(--black);}
+.freq-name{font-size:0.79rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);opacity:.85;}
+.infrasound-note{
+  margin-top:1rem;padding:.8rem 1.2rem;
+  background:rgba(123,94,167,.05);
+  border:.5px solid rgba(123,94,167,.2);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.2rem;color:rgba(123,94,167,.7);
+  text-align:left;max-width:1100px;margin:1rem auto 0;
+}
+
+/* ── SHARE CARDS ── */
+.share-section{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;border-top:.5px solid var(--border);
+}
+.share-visual{
+  background:var(--deep);
+  border-right:.5px solid var(--border);
+  padding:4rem;
+  display:flex;gap:1.5rem;justify-content:center;align-items:flex-end;
+}
+.share-text{padding:4rem;display:flex;flex-direction:column;justify-content:center;}
+
+/* ── REFLECT ── */
+.reflect-section{padding:5rem 4rem;}
+.reflect-inner{max-width:1200px;margin:0 auto;}
+.reflect-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:1.5rem;margin-top:2.5rem;
+  align-items:start;
+}
+.reflect-phones-col{
+  grid-column:1;
+  display:flex;flex-direction:column;gap:1.5rem;
+  align-items:center;
+}
+.reflect-phone{max-width:266px;width:100%;}
+.reflect-data-col{grid-column:2 / 4;}
+.codex-card{
+  background:var(--surface);
+  border:.5px solid rgba(0,212,200,.12);
+  padding:1.8rem;margin-bottom:1px;
+}
+.codex-title{font-size:0.92rem;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan-lo);margin-bottom:1.2rem;}
+.codex-row{
+  display:flex;justify-content:space-between;
+  padding:.5rem 0;border-bottom:.5px solid rgba(255,255,255,.04);
+}
+.codex-row:last-child{border-bottom:none;}
+.codex-key{font-size:1.0rem;color:var(--muted);}
+.codex-val{font-size:1.0rem;letter-spacing:.06em;}
+.reflect-insight{
+  background:var(--deep);border-left:2px solid var(--gold-lo);
+  padding:1.2rem 1.5rem;margin-bottom:1px;
+}
+.ri-label{font-size:0.92rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-lo);margin-bottom:.4rem;}
+.ri-text{font-family:'Cormorant Garamond',serif;font-size:1.33rem;color:var(--text);line-height:1.5;}
+.ri-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.17rem;color:var(--muted);margin-top:.3rem;}
+.reflect-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,255,255,.04);margin-bottom:1.5rem;
+}
+.rs{background:var(--black);padding:1rem;text-align:center;}
+.rs-n{font-family:'Cormorant Garamond',serif;font-size:1.73rem;font-weight:300;color:var(--text);line-height:1;}
+.rs-l{font-size:0.79rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+
+/* ── ARCHITECT ── */
+.arch-section{
+  padding:5rem 4rem;
+  background:var(--deep);
+  border-top:.5px solid var(--border);
+}
+.arch-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.arch-claim{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;font-weight:300;color:var(--muted);
+  line-height:1.65;border-left:2px solid var(--violet);
+  padding:1rem 1.5rem;margin:1.5rem 0;
+}
+.arch-claim strong{color:var(--text);font-weight:300;}
+.arch-loops{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem;}
+.arch-col-label{
+  font-size:0.92rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--cyan-lo);margin-bottom:.7rem;padding-bottom:.5rem;
+  border-bottom:.5px solid rgba(0,212,200,.12);
+}
+.arch-step{
+  display:flex;gap:.8rem;padding:.8rem 0;
+  border-bottom:.5px solid rgba(255,255,255,.04);
+  align-items:flex-start;
+}
+.arch-step:first-child{border-top:.5px solid rgba(255,255,255,.04);}
+.arch-arr{color:var(--cyan-lo);font-size:0.8rem;flex-shrink:0;margin-top:.15rem;}
+.arch-text{font-family:'Cormorant Garamond',serif;font-size:1.26rem;color:var(--muted);line-height:1.55;}
+.orion-box{
+  border:.5px solid rgba(123,94,167,.25);padding:2rem;
+  position:relative;overflow:hidden;margin-top:1.5rem;
+}
+.orion-box::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(123,94,167,.06) 0%,transparent 60%);
+}
+.orion-label{font-size:0.92rem;letter-spacing:.3em;text-transform:uppercase;color:var(--violet);margin-bottom:.6rem;}
+.orion-title{font-family:'Cormorant Garamond',serif;font-size:1.73rem;font-weight:300;color:var(--text);margin-bottom:.6rem;}
+.orion-body{font-family:'Cormorant Garamond',serif;font-size:1.24rem;color:var(--muted);line-height:1.7;}
+
+/* ── PRESETS ── */
+.presets-section{padding:5rem 4rem;max-width:1280px;margin:0 auto;}
+.preset-cats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,255,255,.04);margin-top:2rem;
+}
+.pcat{
+  background:var(--black);padding:1.8rem;
+  transition:background .3s;
+}
+.pcat:hover{background:var(--surface);}
+.pcat-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--text);margin-bottom:.3rem;}
+.pcat-count{font-size:0.92rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.pcat-desc{font-family:'Cormorant Garamond',serif;font-size:1.13rem;color:var(--muted);line-height:1.5;margin-top:.5rem;}
+
+/* ── PRICING ── */
+.pricing-section{
+  padding:5rem 4rem;
+  background:var(--deep);
+  border-top:.5px solid var(--border);
+}
+.pricing-inner{max-width:900px;margin:0 auto;text-align:center;}
+.pricing-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:rgba(255,255,255,.05);
+  margin-top:3rem;text-align:left;
+}
+.price-card{padding:3rem 2.8rem;}
+.price-free{background:var(--deep);}
+.price-plus{
+  background:var(--black);position:relative;overflow:hidden;
+}
+.price-plus::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+}
+.price-badge{font-size:0.89rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.6rem;}
+.price-badge-free{color:var(--green);}
+.price-badge-plus{color:var(--cyan);}
+.price-name{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--text);margin-bottom:.2rem;}
+.price-cost{font-size:1.20rem;letter-spacing:.14em;color:var(--muted);margin-bottom:.4rem;}
+.price-tag{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.65rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.5;}
+.price-div{height:.5px;background:rgba(255,255,255,.06);margin-bottom:1.5rem;}
+.pf-list{display:flex;flex-direction:column;gap:.55rem;margin-bottom:2rem;}
+.pf{display:flex;gap:.7rem;align-items:flex-start;}
+.pf-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:.55rem;}
+.pf-dot-free{background:var(--green);}
+.pf-dot-plus{background:var(--cyan);}
+.pf-text{font-size:1.36rem;color:var(--muted);line-height:1.55;}
+.price-cta{
+  display:inline-block;font-family:'Rajdhani',sans-serif;
+  font-size:1.14rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  padding:.85rem 1.8rem;text-decoration:none;transition:all .3s;
+}
+.price-cta-free{color:var(--black);background:var(--green);}
+.price-cta-free:hover{background:#5dd678;box-shadow:0 0 24px rgba(76,186,104,.3);}
+.price-cta-plus{color:var(--black);background:var(--cyan);}
+.price-cta-plus:hover{background:#00f0e4;box-shadow:0 0 32px rgba(0,212,200,.3);}
+
+/* ── FINAL CTA ── */
+.final-cta{
+  padding:8rem 4rem;text-align:center;
+  position:relative;overflow:hidden;
+  border-top:.5px solid var(--border);
+}
+.final-cta::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(0,212,200,.04) 0%,rgba(200,168,75,.02) 40%,transparent 70%);
+}
+canvas#cta-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.final-inner{position:relative;z-index:2;max-width:700px;margin:0 auto;}
+.final-eyebrow{display:block;margin-bottom:1.2rem;opacity:0;animation:fadeUp .8s .2s both;}
+.final-h2{opacity:0;animation:fadeUp .9s .35s both;margin-bottom:1rem;}
+.final-body{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.46rem;color:var(--muted);line-height:1.8;
+  margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .8s .5s both;
+}
+.final-btns{
+  display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .8s .65s both;
+}
+.final-note{
+  margin-top:1.5rem;font-size:0.74rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--dim);
+  opacity:0;animation:fadeUp .8s .8s both;
+}
+
+/* ── FOOTER ── */
+footer{
+  border-top:.5px solid var(--border);
+  padding:1.8rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--deep);
+}
+.f-logo{font-size:0.9rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);}
+.f-logo b{color:var(--cyan-lo);}
+.f-links{display:flex;gap:1.8rem;}
+.f-links a{font-size:0.92rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;}
+.f-links a:hover{color:var(--muted);}
+.f-copy{font-size:0.92rem;color:var(--muted);}
+
+/* ── DIVIDER ── */
+.divider{height:.5px;background:var(--border);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  nav{padding:.9rem 1.5rem;}.nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:5rem 1.5rem 3rem;gap:2rem;}
+  .hero-right{justify-content:flex-start;padding-top:0;}
+  .hero-phone{width:min(260px,70%);}
+  .spiral-intro,.live-split,.share-section,.arch-inner{grid-template-columns:1fr;}
+  .spiral-text,.spiral-phases,.live-text,.live-phones,.share-visual,.share-text{padding:3rem 1.5rem;}
+  .spiral-text{border-right:none;border-bottom:.5px solid var(--border);}
+  .live-phones{border-right:none;border-bottom:.5px solid var(--border);}
+  .share-visual{border-right:none;border-bottom:.5px solid var(--border);}
+  .math-intro,.reflect-grid{grid-template-columns:1fr;gap:2rem;}
+  .math-grid{grid-template-columns:repeat(2,1fr);}
+  .arch-loops,.freq-grid-plus{grid-template-columns:repeat(2,1fr);}
+  .pricing-grid,.journeys-grid{grid-template-columns:1fr;}
+  .preset-cats{grid-template-columns:1fr 1fr;}
+  .reflect-data-col{grid-column:1;}
+  .sec,.sec-lg,.sec-sm,.math-section,.arch-section,.presets-section,.tone-section,.reflect-section,.pricing-section,.final-cta{padding:3.5rem 1.5rem;}
+  .sigil-section{padding:3rem 0;}
+  .sigil-header{padding:0 1.5rem;}
+  .sigil-row{flex-wrap:wrap;}
+  .sigil-item{flex:0 0 50%;}
+  footer{flex-direction:column;gap:.8rem;text-align:center;padding:1.5rem;}
+  .f-links{justify-content:center;flex-wrap:wrap;}
+  .hero-stat-row{gap:1.5rem;}
+}
+
+
+/* Sub-mobile — single-column for everything two-up. Targets 375–480px,
+   the range where the 1024px rules leave grids too tight. */
+@media(max-width:480px){
+  .math-grid,.arch-loops,.freq-grid-plus,.preset-cats{grid-template-columns:1fr;}
+  .sigil-item{flex:0 0 100%;}
+  .hero{padding:4rem 1.1rem 2.5rem;}
+  .spiral-text,.spiral-phases,.live-text,.live-phones,.share-visual,.share-text{padding:2.5rem 1.1rem;}
+  .sec,.sec-lg,.sec-sm,.math-section,.arch-section,.presets-section,.tone-section,.reflect-section,.pricing-section,.final-cta{padding:3rem 1.1rem;}
+  .sigil-header{padding:0 1.1rem;}
+  nav{padding:.75rem 1.1rem;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <img src="assets/images/logo.png" alt="Spiral Breath" style="width:28px;height:28px;object-fit:cover;border-radius:4px;">
+    <span class="nav-logo-text">Spiral Breath</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#journey">Journeys</a></li>
+    <li><a href="#sigils">Sigils</a></li>
+    <li><a href="#reflect">Reflect</a></li>
+    <li><a href="#architect">Architect</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a href="#pricing" class="nav-cta">Download</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      <span class="hero-eyebrow-label">Breathwork that remembers · iOS · Android coming soon</span>
+    </div>
+    <h1 class="hero-h1">Every breath<br><em>leaves a trace.</em></h1>
+    <p class="hero-body">Every session you complete is encoded into a permanent sacred geometry sigil — computed, not generated. Your coherence is scored. Your patterns are tracked. Your constellation grows.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn btn-primary">Start Free</a>
+      <a href="#journey" class="btn btn-ghost">Explore the System</a>
+    </div>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="hero-stat-n">74</span><span class="hero-stat-l">Presets</span></div>
+      <div class="hero-stat"><span class="hero-stat-n">16</span><span class="hero-stat-l">Journeys</span></div>
+      <div class="hero-stat"><span class="hero-stat-n">38</span><span class="hero-stat-l">Frequencies</span></div>
+      <div class="hero-stat"><span class="hero-stat-n">∞</span><span class="hero-stat-l">Sigils</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-phone device device-gold">
+      <img src="assets/images/hero-phone.png" alt="Live session">
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span>✦</span> Every breath leaves a trace</span>
+    <span class="ticker-item"><span>✦</span> Breath Lock coherence scoring</span>
+    <span class="ticker-item"><span>✦</span> 74 precision-crafted presets</span>
+    <span class="ticker-item"><span>✦</span> The First Spiral — free forever</span>
+    <span class="ticker-item"><span>✦</span> Binaural Solfeggio tones</span>
+    <span class="ticker-item"><span>✦</span> Codex Field Mirror</span>
+    <span class="ticker-item"><span>✦</span> 16 structured journeys</span>
+    <span class="ticker-item"><span>✦</span> Architect+ AI integration</span>
+    <span class="ticker-item"><span>✦</span> Your practice, permanently archived</span>
+    <span class="ticker-item"><span>✦</span> Every breath leaves a trace</span>
+    <span class="ticker-item"><span>✦</span> Breath Lock coherence scoring</span>
+    <span class="ticker-item"><span>✦</span> 74 precision-crafted presets</span>
+    <span class="ticker-item"><span>✦</span> The First Spiral — free forever</span>
+    <span class="ticker-item"><span>✦</span> Binaural Solfeggio tones</span>
+    <span class="ticker-item"><span>✦</span> Codex Field Mirror</span>
+    <span class="ticker-item"><span>✦</span> 16 structured journeys</span>
+    <span class="ticker-item"><span>✦</span> Architect+ AI integration</span>
+    <span class="ticker-item"><span>✦</span> Your practice, permanently archived</span>
+  </div>
+</div>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <p class="eyebrow reveal" style="margin-bottom:.8rem;">The difference</p>
+  <h2 class="reveal d1">Other apps end<br>when the session ends.<br><em>This one begins there.</em></h2>
+  <div style="height:1rem;"></div>
+  <p class="body reveal d2">Your breath is measured. Your coherence is scored. Your session becomes geometry — a permanent, deterministic sigil that belongs to that moment alone. Week by week, your constellation grows. Your practice becomes something you can see.</p>
+</section>
+
+<!-- ACT I: JOURNEY -->
+<section id="journey" style="border-top:.5px solid var(--border);">
+  <div class="spiral-intro">
+    <div class="spiral-text reveal from-left">
+      <div class="free-forever-tag"><span>Free Forever</span></div>
+      <p class="eyebrow" style="margin-bottom:.7rem;">Start here</p>
+      <h2 style="margin-bottom:.9rem;">The First<br><em>Spiral.</em></h2>
+      <p class="body" style="margin-bottom:1.2rem;">Nine days. Three phases. A deliberate arc from foundation to integration. The First Spiral is free, permanent, and always available — no Plus required, no expiry. It's your entry point into structured breathwork.</p>
+      <p class="body">Complete it and your first constellation is born — nine sessions, nine sigils, nine days of visible progress permanently archived in your Breath Map.</p>
+      <div style="margin-top:1.5rem;"><a href="#pricing" class="btn btn-primary">Begin The First Spiral</a></div>
+    </div>
+    <div class="spiral-phases reveal from-right">
+      <p class="eyebrow" style="margin-bottom:1rem;">Three phases</p>
+      <div class="phase-row">
+        <div class="phase-num">01</div>
+        <div class="phase-body">
+          <div class="phase-name">Foundation · Days 1–3</div>
+          <div class="phase-desc">Settle the nervous system. Establish the pattern. Build the anchor that every session will rest on.</div>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">02</div>
+        <div class="phase-body">
+          <div class="phase-name">Activation · Days 4–6</div>
+          <div class="phase-desc">Engage. Energise. Push the coherence ceiling. This is where the practice reveals its depth.</div>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-num">03</div>
+        <div class="phase-body">
+          <div class="phase-name">Integration · Days 7–9</div>
+          <div class="phase-desc">Synthesise. Stabilise. Carry the pattern into your field as a permanent structure.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16 JOURNEYS GRID -->
+  <div style="padding:3rem 4rem;border-top:.5px solid var(--border);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.5rem;">
+      <div>
+        <p class="eyebrow reveal" style="margin-bottom:.5rem;">16 Structured Journeys</p>
+        <h3 class="reveal d1">A journey is not a playlist.<br><em>It's a structured arc.</em></h3>
+      </div>
+      <p class="body reveal d2" style="max-width:320px;text-align:right;">5 to 45 days. Each built around one clear outcome. All 15 Plus journeys unlock with Plus.</p>
+    </div>
+  </div>
+  <div class="journeys-grid">
+    <div class="j-card j-free">
+      <div class="j-name">The First Spiral</div>
+      <div class="j-meta">9 Days · Foundation → Activation → Integration</div>
+      <span class="j-badge j-badge-free">Free Forever</span>
+    </div>
+    <div class="j-card"><div class="j-name">Self-Love</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Coherence Builder</div><div class="j-meta">30 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Wealth Consciousness</div><div class="j-meta">30 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Purpose &amp; Dharma</div><div class="j-meta">30 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Chakra Integration</div><div class="j-meta">45 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">First Light</div><div class="j-meta">5 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Calm Reset</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Dawn Practice</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Evening Ritual</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Box Breath</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Deep Presence</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Resonance Builder</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Anchoring Immersion</div><div class="j-meta">21 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Thirty Day Arc</div><div class="j-meta">30 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    <div class="j-card"><div class="j-name">Explorer's Circuit</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+  </div>
+
+  <!-- JOURNEY PHONE SCREENSHOTS -->
+  <div style="padding:3rem 4rem;background:var(--deep);border-top:.5px solid var(--border);">
+    <p class="eyebrow reveal" style="margin-bottom:1.5rem;text-align:center;">Inside the journeys</p>
+    <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;align-items:flex-start;" class="reveal d1">
+      <div class="device device-gold" style="flex:0 0 240px;">
+        <img src="assets/images/journeys-self-love.png" alt="Self-Love journey">
+        <div style="font-size:0.89rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:.6rem;">Self-Love · 14 Days</div>
+      </div>
+      <div class="device" style="flex:0 0 240px;">
+        <img src="assets/images/journeys-coherence-builder.png" alt="Coherence Builder journey">
+        <div style="font-size:0.89rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:.6rem;">Coherence Builder · 30 Days</div>
+      </div>
+      <div class="device device-violet" style="flex:0 0 240px;">
+        <img src="assets/images/journeys-purpose-dharma.png" alt="Purpose &amp; Dharma journey">
+        <div style="font-size:0.89rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:.6rem;">Purpose &amp; Dharma · 30 Days</div>
+      </div>
+      <div class="device" style="flex:0 0 240px;">
+        <img src="assets/images/journeys-first-light.png" alt="First Light journey">
+        <div style="font-size:0.89rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:.6rem;">First Light · Dawn Practice</div>
+      </div>
+      <div class="device device-gold" style="flex:0 0 240px;">
+        <img src="assets/images/journeys-evening-ritual.png" alt="Evening Ritual journey">
+        <div style="font-size:0.89rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:.6rem;">Evening Ritual · Box Breath</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT II: COHERENCE -->
+<section id="coherence" style="border-top:.5px solid var(--border);">
+  <div class="live-split">
+    <div class="live-phones from-left">
+      <div class="device device-red" style="flex:0 0 300px;">
+        <img src="assets/images/hero-phone-orion.png" alt="Orion Stargate live session">
+      </div>
+      <div class="device device-cyan" style="flex:0 0 300px;">
+        <img src="assets/images/hero-phone-codex.png" alt="Codex Square live session">
+      </div>
+    </div>
+    <div class="live-text reveal from-right">
+      <p class="eyebrow" style="margin-bottom:.7rem;">During the session</p>
+      <h2 style="margin-bottom:.9rem;">The glyph breathes<br><em>with you.</em></h2>
+      <p class="body" style="margin-bottom:1.2rem;">The visual glyph expands on your inhale and contracts on your exhale. Phase names and second counts are spoken aloud. Your eyes can close. The pattern holds you.</p>
+      <p class="body" style="margin-bottom:1.5rem;">Every preset has its own geometry, colour palette, and Solfeggio frequency. The glyph is computed live from your breath ratios.</p>
+      <div class="score-display">
+        <span class="score-n">91</span>
+        <span class="score-label">Coherence Score — Excellent</span>
+      </div>
+      <div class="score-rows">
+        <div class="score-row"><span class="score-key">Timing Precision</span><span class="score-val" style="color:var(--green);">96%</span></div>
+        <div class="score-row"><span class="score-key">Breath Lock</span><span class="score-val" style="color:var(--green);">Engaged</span></div>
+        <div class="score-row"><span class="score-key">Completion</span><span class="score-val" style="color:var(--cyan);">Full</span></div>
+        <div class="score-row"><span class="score-key">Label</span><span class="score-val" style="color:var(--gold);">Excellent</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT III: SIGILS -->
+<section class="sigil-section" id="sigils" style="border-top:.5px solid var(--border);">
+  <div class="sigil-header reveal">
+    <p class="eyebrow" style="margin-bottom:.7rem;">Deterministic Sacred Geometry</p>
+    <h2 style="margin-bottom:.7rem;">Every session.<br><em>A permanent sigil.</em></h2>
+    <p class="body" style="max-width:540px;margin:0 auto;">Not AI art. Not random. Every sigil is computed deterministically from 10 mathematical systems — your exact breath ratios, session timestamp, Solfeggio frequency, and cycle count. No two are alike. None can be recreated. This one belongs to that moment and no other.</p>
+  </div>
+  <div class="sigil-row reveal d1">
+    <div class="sigil-item">
+      <img src="assets/images/sigil-ascend.png" alt="Ascend" class="sigil-img">
+      <div class="sigil-preset">Ascend</div>
+      <div class="sigil-hz">528 Hz · 5·5·5·5</div>
+    </div>
+    <div class="sigil-item">
+      <img src="assets/images/sigil-orion.png" alt="Orion Stargate Spiral" class="sigil-img">
+      <div class="sigil-preset">Orion Stargate Spiral</div>
+      <div class="sigil-hz">963 Hz · 14·11·14·11</div>
+    </div>
+    <div class="sigil-item">
+      <img src="assets/images/sigil-codex-square.png" alt="Codex Square" class="sigil-img">
+      <div class="sigil-preset">Codex Square</div>
+      <div class="sigil-hz">528 Hz · 4·4·4·4</div>
+    </div>
+    <div class="sigil-item">
+      <img src="assets/images/sigil-emotional-release.png" alt="Emotional Release" class="sigil-img">
+      <div class="sigil-preset">Emotional Release</div>
+      <div class="sigil-hz">417 Hz · 5·5·5·5</div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGIL MATH -->
+<section class="math-section" id="sigmath">
+  <div class="math-intro">
+    <div class="reveal from-left">
+      <p class="eyebrow" style="margin-bottom:.7rem;">The mathematics</p>
+      <h2 style="margin-bottom:.9rem;">Ten systems.<br><em>One sigil.</em></h2>
+      <p class="body">Every session encodes your breath into ten simultaneous geometric systems. The result is a single form that carries your exact practice in its structure — readable, beautiful, permanent.</p>
+    </div>
+    <div class="reveal from-right">
+      <p class="body">The sigil is deterministic. Change a single ratio, a single cycle count, a single second — the geometry changes entirely. Your practice is literally written in the form.</p>
+    </div>
+  </div>
+  <div class="math-grid reveal d1">
+    <div class="math-card"><div class="math-n">01</div><div class="math-name">Grant Projection Theorem</div><div class="math-desc">Prime number relationships encoded from your breath phase ratios as polygonal projections.</div></div>
+    <div class="math-card"><div class="math-n">02</div><div class="math-name">Seven Force Corridors</div><div class="math-desc">Planetary angular resonances mapped to your cycle timing and session duration.</div></div>
+    <div class="math-card"><div class="math-n">03</div><div class="math-name">Fine Structure Constant</div><div class="math-desc">α⁻¹ ≈ 137.036 — the quantum constant of light-matter interaction embedded in each sigil's proportions.</div><div class="math-formula">α = e²/4πε₀ℏc</div></div>
+    <div class="math-card"><div class="math-n">04</div><div class="math-name">Golden Angle Phyllotaxis</div><div class="math-desc">137.5° spiral growth pattern from your breath counts — the same mathematics as a sunflower seed.</div></div>
+    <div class="math-card"><div class="math-n">05</div><div class="math-name">Hz Resonance Nodes</div><div class="math-desc">Your Solfeggio frequency creates resonance node positions that anchor the entire sigil geometry.</div></div>
+    <div class="math-card"><div class="math-n">06</div><div class="math-name">Rosetta Stone Closure</div><div class="math-desc">Ancient numerical encoding systems applied to your phase sequence to close the geometric form.</div></div>
+    <div class="math-card"><div class="math-n">07</div><div class="math-name">Gematria Mandala</div><div class="math-desc">Numerical values of your session affirmations encoded as radial symmetry in the outer ring.</div></div>
+    <div class="math-card"><div class="math-n">08</div><div class="math-name">Coherence Triangle</div><div class="math-desc">Your three coherence scores — Timing, Breath Lock, Completion — form the inner triangular structure.</div></div>
+    <div class="math-card"><div class="math-n">09</div><div class="math-name">Epsilon Zero Gate</div><div class="math-desc">ε₀ — permittivity of free space — scales the outermost ring proportions to your total session time.</div></div>
+    <div class="math-card"><div class="math-n">10</div><div class="math-name">Session Timestamp Seeding</div><div class="math-desc">The Unix timestamp of your session seeds the entire geometry. No two moments in time are the same.</div></div>
+  </div>
+</section>
+
+<!-- CONSTELLATION -->
+<section style="border-top:.5px solid var(--border);">
+  <div class="share-section">
+    <div class="share-visual from-left" style="flex-direction:column;gap:1rem;align-items:center;justify-content:center;">
+      <div class="device device-cyan" style="max-width:425px;width:100%;">
+        <img src="assets/images/home-constellation.png" alt="Spiral Breath — home constellation">
+      </div>
+    </div>
+    <div class="share-text reveal from-right">
+      <p class="eyebrow" style="margin-bottom:.7rem;">A lifetime of practice</p>
+      <h2 style="margin-bottom:.9rem;">Your sessions<br>become a<br><em>constellation.</em></h2>
+      <p class="body" style="margin-bottom:1.2rem;">Every sigil you generate is archived permanently in your Breath Map — a constellation of every session you've ever completed, plotted in space and connected by time. Tap any node to revisit the session: its sigil, coherence score, affirmations, frequency.</p>
+      <p class="body" style="margin-bottom:1.2rem;">As you practice, your constellation grows. Your history becomes visible. Your evolution becomes a form you can see.</p>
+      <p class="body">Every completed session is a permanent node. Every sigil a fixed point. Over time they accumulate — joining, connecting, forming something uniquely yours. No other practice looks like it. No other practitioner has yours.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<section style="border-top:.5px solid var(--border);">
+  <div class="share-section">
+    <div class="share-text reveal from-left" style="border-right:.5px solid var(--border);">
+      <p class="eyebrow" style="margin-bottom:.7rem;">The viral loop</p>
+      <h2 style="margin-bottom:.9rem;">Most apps produce<br>nothing you can share.<br><em>Spiral Breath+ does.</em></h2>
+      <p class="body" style="margin-bottom:1.2rem;">Every session produces a fully rendered share card — your sigil, your coherence score, your frequency, your affirmation. Designed to carry the energy of that exact practice.</p>
+      <p class="body">It doesn't tell people you practise breathwork. It shows them what your practice <em>looks like.</em> Every card is a different form. Every card is unrepeatable.</p>
+    </div>
+    <div class="share-visual from-right" style="border-left:none;">
+      <div class="device device-gold" style="flex:0 0 266px;margin:0 auto;">
+        <img src="assets/images/share-card.png" alt="Share card">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ACT V: REFLECT -->
+<section class="reflect-section" id="reflect" style="border-top:.5px solid var(--border);">
+  <div class="reflect-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:2.5rem;">
+      <div class="reveal from-left">
+        <p class="eyebrow" style="margin-bottom:.7rem;">After every session</p>
+        <h2 style="margin-bottom:.9rem;">Your practice<br>has a pattern.<br><em>We make it visible.</em></h2>
+      </div>
+      <div class="reveal from-right">
+        <p class="body">Most apps show you a streak counter and call it reflection. Spiral Breath+ shows you who you're becoming. Your Archetype, your dominant affirmations, your coherence trend, your practice field state. Then it tells you exactly what to do next — and which preset to try.</p>
+      </div>
+    </div>
+    <div class="reflect-grid">
+      <div class="reflect-phones-col reveal d1">
+        <div class="reflect-phone device device-violet"><img src="assets/images/reflect-weekly.png" alt="Reflect — weekly stats"></div>
+        <div class="reflect-phone device"><img src="assets/images/reflect-codex.png" alt="Reflect — Codex Field Mirror"></div>
+        <div class="reflect-phone device device-gold"><img src="assets/images/reflect-next.png" alt="Reflect — Next Step"></div>
+      </div>
+      <div class="reflect-data-col reveal d2">
+        <div class="reflect-stats">
+          <div class="rs"><div class="rs-n" style="color:var(--cyan);">91</div><div class="rs-l">Avg Coherence</div></div>
+          <div class="rs"><div class="rs-n" style="color:var(--gold);">23</div><div class="rs-l">Sessions</div></div>
+          <div class="rs"><div class="rs-n" style="color:var(--violet);">14h</div><div class="rs-l">Total Time</div></div>
+        </div>
+        <div class="codex-card">
+          <div class="codex-title">Codex Field Mirror</div>
+          <div class="codex-row"><span class="codex-key">Hawkins Scalar Resonance</span><span class="codex-val" style="color:var(--gold);">540</span></div>
+          <div class="codex-row"><span class="codex-key">DNA Strands Activated</span><span class="codex-val" style="color:var(--cyan);">4 of 12</span></div>
+          <div class="codex-row"><span class="codex-key">Coherence Field Strength</span><span class="codex-val" style="color:var(--green);">Strong</span></div>
+          <div class="codex-row"><span class="codex-key">Current Dimension Level</span><span class="codex-val" style="color:var(--gold);">5.2</span></div>
+          <div class="codex-row"><span class="codex-key">Archetype Influence</span><span class="codex-val" style="color:var(--violet);">The Architect</span></div>
+          <div class="codex-row"><span class="codex-key">Breath Signature</span><span class="codex-val" style="color:var(--cyan);">Expansive</span></div>
+          <div class="codex-row"><span class="codex-key">Mirror Clarity</span><span class="codex-val" style="color:var(--green);">High</span></div>
+        </div>
+        <div class="reflect-insight" style="margin-top:1px;">
+          <div class="ri-label">Practice Field</div>
+          <div class="ri-text">Expanding — strong coherence trend, timing precision above baseline.</div>
+          <div class="ri-sub">Next Step: Increase hold phase by 2s. Try Orion Stargate Spiral.</div>
+        </div>
+        <div class="reflect-insight" style="margin-top:1px;">
+          <div class="ri-label">Dominant Recursion</div>
+          <div class="ri-text">"I breathe in the light of Orion." × 4 &nbsp;·&nbsp; "I am free." × 3</div>
+          <div class="ri-sub">What you've been breathing into is shown back to you.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT VI: ARCHITECT -->
+<section class="arch-section" id="architect">
+  <div class="arch-inner">
+    <div class="reveal from-left">
+      <p class="eyebrow" style="margin-bottom:.7rem;">For those who go deeper</p>
+      <h2 style="margin-bottom:.9rem;">Your session<br>becomes a<br><em>conversation.</em></h2>
+      <p class="body" style="margin-bottom:1rem;">No other breathwork app does this. After every session, your complete practice data — breath ratios, coherence scores, timing patterns, affirmations, Codex Field readings — is available as a JSON export.</p>
+      <div class="arch-claim reveal d2">
+        Paste it into <strong>Gaia Architect+</strong> or <strong>Orion Architect.</strong> They read your field, analyse your current state, and return a completely new personalised exercise built for exactly where you are right now. Import it back. <strong>Your next session is a direct response to your last one.</strong>
+      </div>
+      <div class="arch-loops reveal d3">
+        <div>
+          <div class="arch-col-label">Gaia Architect+</div>
+          <div class="arch-step"><span class="arch-arr">→</span><span class="arch-text">Copy session JSON from Reflect</span></div>
+          <div class="arch-step"><span class="arch-arr">→</span><span class="arch-text">Paste into Gaia Architect+</span></div>
+          <div class="arch-step"><span class="arch-arr">→</span><span class="arch-text">Gaia reads your full field history</span></div>
+          <div class="arch-step"><span class="arch-arr">→</span><span class="arch-text">Returns a personalised exercise JSON</span></div>
+          <div class="arch-step"><span class="arch-arr">→</span><span class="arch-text">Import back — session ready</span></div>
+        </div>
+        <div>
+          <div class="arch-col-label" style="color:var(--violet);border-color:rgba(123,94,167,.2);">Orion Architect</div>
+          <div class="arch-step"><span class="arch-arr" style="color:var(--violet);">→</span><span class="arch-text">Export session from Reflect tab</span></div>
+          <div class="arch-step"><span class="arch-arr" style="color:var(--violet);">→</span><span class="arch-text">Paste into Orion Architect</span></div>
+          <div class="arch-step"><span class="arch-arr" style="color:var(--violet);">→</span><span class="arch-text">Orion analyses coherence &amp; patterns</span></div>
+          <div class="arch-step"><span class="arch-arr" style="color:var(--violet);">→</span><span class="arch-text">Returns custom exercise for your state</span></div>
+          <div class="arch-step"><span class="arch-arr" style="color:var(--violet);">→</span><span class="arch-text">Import via paste, screenshot, or manual</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal from-right">
+      <div class="device device-violet" style="max-width:346px;margin-bottom:1.5rem;">
+        <img src="assets/images/architect-orion.png" alt="Orion Architect import screen">
+      </div>
+      <div class="orion-box">
+        <div class="orion-label">Orion Architect</div>
+        <div class="orion-title">A breathwork AI that reads your field.</div>
+        <div class="orion-body">Orion is a precision breathwork intelligence. Feed it your session JSON and it designs a custom exercise calibrated to your current coherence state, dominant affirmations, and Codex Field readings. Not a generic recommendation — a specific prescription for where you are right now.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TONES -->
+<section class="tone-section" id="tones" style="background:var(--deep);border-top:.5px solid var(--border);">
+  <div class="freq-wrap">
+    <p class="eyebrow reveal" style="margin-bottom:.6rem;">Binaural Solfeggio Tones</p>
+    <h2 class="reveal d1" style="margin-bottom:.7rem;">Every preset has<br>a <em>frequency.</em></h2>
+    <p class="body tone-intro reveal d2">Every preset plays a binaural Solfeggio frequency tuned to its intention. Plus subscribers unlock a second infrasonic layer beneath every session — a low-frequency carrier designed to deepen coherence.</p>
+    <div class="freq-label freq-label-free reveal d2">Free — 2 Binaural Solfeggio Tones</div>
+    <div class="freq-grid freq-grid-free reveal d3">
+      <div class="freq-cell freq-cell-free"><div class="freq-hz">528 Hz</div><div class="freq-name">Miracle Tone · DNA Repair</div></div>
+      <div class="freq-cell freq-cell-free"><div class="freq-hz">174 Hz</div><div class="freq-name">Foundation · Pain Reduction</div></div>
+    </div>
+    <div class="freq-label freq-label-plus reveal d2">Plus — All 38 Binaural Solfeggio Frequencies</div>
+    <div class="freq-grid freq-grid-plus reveal d3">
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">174</div><div class="freq-name">Foundation</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">285</div><div class="freq-name">Quantum Cognition</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">396</div><div class="freq-name">Liberation</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">417</div><div class="freq-name">Transformation</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">432</div><div class="freq-name">Universal Harmony</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">444</div><div class="freq-name">Awakening</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">528</div><div class="freq-name">Miracle Tone</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">639</div><div class="freq-name">Connection</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">741</div><div class="freq-name">Expression</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">852</div><div class="freq-name">Intuition</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">963</div><div class="freq-name">Divine Consciousness</div></div>
+      <div class="freq-cell freq-cell-plus"><div class="freq-hz">+27</div><div class="freq-name">More in Plus</div></div>
+    </div>
+    <div class="infrasound-note reveal d3">Plus: A second infrasonic layer is added beneath every session — a low-frequency carrier tuned to amplify coherence at a sub-audible level. Heard by the body, not the ears.</div>
+  </div>
+</section>
+
+<!-- PRESETS -->
+<section class="presets-section" id="presets" style="border-top:.5px solid var(--border);">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:2rem;">
+    <div class="reveal from-left">
+      <p class="eyebrow" style="margin-bottom:.6rem;">74 Precision-Crafted Presets</p>
+      <h2 style="margin-bottom:.8rem;">Every intention.<br><em>A preset for it.</em></h2>
+    </div>
+    <div class="reveal from-right">
+      <p class="body">Nine categories. 74 precision-crafted presets by the Architect. Each one a complete session — ratios, frequency, affirmations, geometry, and stillness time calibrated to one intention. Use any as written, or customise every parameter down to the second.</p>
+    </div>
+  </div>
+  <div class="preset-cats reveal d1">
+    <div class="pcat"><div class="pcat-name">Higher Consciousness</div><div class="pcat-count">16 presets</div><div class="pcat-desc">Spiritual awakening, dimensional expansion, divine connection.</div></div>
+    <div class="pcat"><div class="pcat-name">Alignment &amp; Balance</div><div class="pcat-count">18 presets</div><div class="pcat-desc">Nervous system regulation, chakra work, energetic equilibrium.</div></div>
+    <div class="pcat"><div class="pcat-name">Emotional Release</div><div class="pcat-count">8 presets</div><div class="pcat-desc">Grief, trauma, suppressed feeling — breathed through and released.</div></div>
+    <div class="pcat"><div class="pcat-name">Manifestation</div><div class="pcat-count">7 presets</div><div class="pcat-desc">Abundance, wealth consciousness, magnetic field activation.</div></div>
+    <div class="pcat"><div class="pcat-name">Physical &amp; Cellular</div><div class="pcat-count">6 presets</div><div class="pcat-desc">DNA activation, cellular repair, biophoton emission.</div></div>
+    <div class="pcat"><div class="pcat-name">Sacred Geometry</div><div class="pcat-count">4 presets</div><div class="pcat-desc">Codex Square, Orion Stargate Spiral, geometric field activation.</div></div>
+  </div>
+  <p class="body reveal d2" style="margin-top:1rem;text-align:center;color:var(--dim);font-style:italic;">Plus: Grounding &amp; Stability · Self-Realisation · Divine Connection — and full customisation of every parameter.</p>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <p class="eyebrow reveal" style="margin-bottom:.6rem;">Simple pricing</p>
+    <h2 class="reveal d1" style="margin-bottom:.7rem;">Start free.<br><em>Go as deep as you want.</em></h2>
+    <p class="body reveal d2">The First Spiral is yours forever. No card. No expiry. A complete 9-day practice. When you're ready to go further, Plus opens everything.</p>
+    <div class="pricing-grid">
+      <div class="price-card price-free">
+        <div class="price-badge price-badge-free">Free</div>
+        <div class="price-name">Spiral Breath</div>
+        <div class="price-cost">Free · Always</div>
+        <div class="price-tag">A real practice. A permanent sigil. Yours from day one.</div>
+        <div class="price-div"></div>
+        <div class="pf-list">
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">The First Spiral — 9-day guided journey, free forever</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">9 featured presets — Calm &amp; Regulation, Energy Boost, Grounding, Focus, Stress Relief, Morning, Evening, Heart Coherence, Mindfulness</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">Featured Experience — full preview of Plus, unlimited use</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">Real-time breath detection — microphone-aware coherence</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">Breath Lock coherence scoring (0–100)</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">Sigil &amp; glyph generation — black &amp; white</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">Full-color Share Cards — your practice, share anywhere</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">2 binaural Solfeggio tones — 528 Hz &amp; 174 Hz</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">Constellation Breath Map — black &amp; white</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">30-day session history</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">Practice statistics — sessions, minutes, streaks, coherence trends</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">Voice guidance — spoken phase cues</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">Reflect — full access for 30 days</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">1 custom exercise slot in My Exercises</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">QR exchange — receive compatible breath exercises</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-free"></div><span class="pf-text">All your data stays on your device</span></div>
+        </div>
+        <a href="#" class="price-cta price-cta-free">Download Free</a>
+        <p style="margin-top:.9rem;font-size:0.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);">iOS today · Android coming soon</p>
+      </div>
+      <div class="price-card price-plus">
+        <div class="price-badge price-badge-plus">Plus</div>
+        <div class="price-name">Spiral Breath+</div>
+        <div class="price-cost">$12.99 / month &nbsp;·&nbsp; $79.99 / year</div>
+        <div class="price-tag">The complete system. Seven days free to experience everything.</div>
+        <div class="price-div"></div>
+        <div class="pf-list">
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Everything in Free — now in full color</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">All 74 advanced presets — sacred geometry, chakra, manifestation, consciousness, alignment</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">All 16 journeys — Self-Love, Coherence Builder, Wealth Consciousness, Chakra Integration, Purpose &amp; Dharma, and more</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Custom journey creation — design your own multi-day arcs</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Unlimited custom exercises in My Exercises</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Full-color sigils, glyphs, Breath Map, and Archive — every artifact in color</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">All 38 binaural Solfeggio frequencies + infrasonic second layer</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Voice guidance — phase names + numeric countdown</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Architect integration — Codex-aware imports + exports</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Unlimited Reflect — Codex Field Mirror, weekly insight, Next Step coaching</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Unlimited session archive — every session preserved at full fidelity</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Apple Family Sharing (annual plans)</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Founding Member price lock — subscribe in the first 90 days, rate locked forever</span></div>
+        </div>
+        <a href="#" class="price-cta price-cta-plus">Start 7-Day Free Trial</a>
+        <p style="margin-top:.9rem;font-size:0.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);">iOS today · Android coming soon</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="final-cta">
+  <canvas id="cta-canvas"></canvas>
+  <div class="final-inner">
+    <span class="eyebrow final-eyebrow">Begin your practice</span>
+    <h2 class="final-h2">The spiral<br>has already<br><em>begun.</em></h2>
+    <p class="final-body">Begin with one breath.<br>Complete your First Spiral.<br>Watch your sessions become geometry.<br>Build your constellation.<br><br><em>The practice that remembers.</em></p>
+    <div class="final-btns">
+      <a href="#pricing" class="btn btn-primary">Begin Free — The First Spiral</a>
+      <a href="#pricing" class="btn btn-ghost">Start Plus — 7-Day Trial</a>
+    </div>
+    <p class="final-note">Free forever · No card required · iOS today · Android coming soon</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="nav-logo">
+    <img src="assets/images/logo.png" alt="Spiral Breath" style="width:26px;height:26px;object-fit:cover;border-radius:4px;">
+    <span class="nav-logo-text">Spiral Breath</span>
+  </div>
+  <div class="f-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Support</a>
+    <a href="https://apps.apple.com" target="_blank">App Store</a>
+  </div>
+  <div class="f-copy">© 2026 Spiral Breath</div>
+</footer>
+
+<script>
+// ── NAV scroll ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, {passive:true});
+
+// ── Scroll reveal ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      obs.unobserve(e.target);
+    }
+  });
+}, {threshold:.1, rootMargin:'0px 0px -40px 0px'});
+
+document.querySelectorAll('.reveal,.from-left,.from-right').forEach(el => obs.observe(el));
+
+// ── Animation gating ──
+// Skip both decorative canvases on mobile (battery + CPU) and when the user
+// has prefers-reduced-motion set (accessibility). The hero canvas does O(n²)
+// connection checks per frame, fine on desktop but hot on mid-tier phones.
+const SKIP_CANVAS = window.matchMedia('(max-width: 768px)').matches
+                 || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ── Hero canvas — drifting constellations ──
+(function() {
+  if (SKIP_CANVAS) return;
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resize); resize();
+
+  function initNodes() {
+    nodes = Array.from({length:60}, () => ({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
+      r: Math.random()*1.5+.5,
+      a: Math.random()
+    }));
+  }
+  initNodes();
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if(n.x<0||n.x>W) n.vx*=-1;
+      if(n.y<0||n.y>H) n.vy*=-1;
+    });
+    // connections
+    for(let i=0;i<nodes.length;i++) {
+      for(let j=i+1;j<nodes.length;j++) {
+        const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle='rgba(200,168,75,'+(0.12*(1-d/120))+')';
+          ctx.lineWidth=.5;
+          ctx.stroke();
+        }
+      }
+    }
+    // nodes
+    nodes.forEach(n => {
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(0,212,200,'+(n.a*0.4)+')';
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── CTA canvas — same effect ──
+(function() {
+  if (SKIP_CANVAS) return;
+  const canvas = document.getElementById('cta-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes;
+  function resize() { W=canvas.width=canvas.offsetWidth; H=canvas.height=canvas.offsetHeight; }
+  window.addEventListener('resize',resize); resize();
+  nodes = Array.from({length:40}, () => ({
+    x:Math.random()*1000,y:Math.random()*600,
+    vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()+.4
+  }));
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    nodes.forEach(n=>{
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(200,168,75,.25)';ctx.fill();
+    });
+    for(let i=0;i<nodes.length;i++) {
+      for(let j=i+1;j<nodes.length;j++) {
+        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<140){ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.strokeStyle=`rgba(0,212,200,${.1*(1-d/140)})`;ctx.lineWidth=.5;ctx.stroke();}
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

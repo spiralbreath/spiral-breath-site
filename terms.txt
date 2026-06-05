@@ -1,0 +1,180 @@
+# Terms of Service
+
+**Effective date: June 4, 2026**
+
+These terms govern your use of the Spiral Breath+ application ("the App") on iOS. By downloading or using the App, you agree to these terms. If you do not agree, please do not use the App.
+
+---
+
+## 1. The Service
+
+Spiral Breath+ is a structured breathwork practice app that provides:
+
+- Configurable breath sessions with phase timing, audio cues, and visual guidance
+- Real-time breath detection through your device's microphone
+- Coherence scoring across six tiers
+- Generation of unique geometric sigils from your session inputs
+- A Breath Map and archive of your practice history
+- Practice journeys (multi-day arcs)
+- A library of curated presets, with additional content available under the Spiral Breath+ subscription
+- Optional AI Reflection using your own Anthropic API key
+- QR-code exchange of breath exercises
+
+The App is available in two tiers — a free tier with a curated set of features and Spiral Breath+ ("Plus"), a paid subscription that unlocks the full feature set.
+
+---
+
+## 2. License
+
+We grant you a limited, personal, non-exclusive, non-transferable, revocable license to use the App on iOS devices you own or control, subject to these terms and the Apple App Store Terms of Service. You may not:
+
+- Reverse engineer, decompile, or disassemble the App
+- Modify or create derivative works of the App
+- Distribute, sublicense, or sell access to the App
+- Use the App for any unlawful purpose
+
+This license terminates automatically if you violate these terms.
+
+---
+
+## 3. Subscriptions (Spiral Breath+)
+
+### Pricing
+
+- **Monthly:** $12.99 USD per month
+- **Annual:** $79.99 USD per year (approximately $6.67 per month)
+
+Prices in other regions are set by Apple and displayed in your local currency before purchase. Annual subscriptions include Apple Family Sharing — one subscription unlocks Plus for up to six family members in your Apple Family.
+
+### Free trial
+
+New subscribers may receive a 7-day free trial. Payment information is collected at sign-up. You will not be charged if you cancel before the trial ends.
+
+### Auto-renewal
+
+**Spiral Breath+ subscriptions are auto-renewing.** Payment is charged to your Apple ID on confirmation of purchase. Subscriptions automatically renew at the end of each period at the then-current rate unless you cancel at least 24 hours before the renewal date. Your account is charged for renewal within 24 hours before the end of the current period.
+
+### Cancellation
+
+You can cancel at any time through iOS Settings → Apple ID → Subscriptions, or through the "Manage Subscription" link inside the App. Cancellation takes effect at the end of the current paid period; Plus features remain available until then.
+
+### Refunds
+
+All payments are processed by Apple under Apple's refund policy. We cannot process refunds directly. To request a refund, use Apple's standard refund process at reportaproblem.apple.com.
+
+### Founding Member price lock
+
+If you subscribe during the first 90 days following Spiral Breath+'s App Store launch, your subscription rate is locked at the launch price for the lifetime of your continuous subscription. If you cancel your subscription and later re-subscribe, the then-current price will apply.
+
+---
+
+## 4. The free tier
+
+The free tier includes a curated set of features described inside the App and on spiralbreath.app. The free tier requires no payment and has no time limit. Features in the free tier may change over time; we will not remove access to your existing session history, custom presets, or generated sigils if you remain on the free tier.
+
+---
+
+## 5. Your content
+
+When you create custom presets, journeys, affirmations, or other content within the App, you retain all rights to that content. We do not claim ownership. Because all your content is stored locally on your device, we do not have access to it and cannot reproduce, share, or use it.
+
+When you share a sigil card or scan/transmit a QR-encoded exercise to another person, you are responsible for what you share and to whom.
+
+---
+
+## 6. Acceptable use
+
+You agree not to:
+
+- Use the App in a way that could harm yourself or others
+- Use the App while operating a vehicle or any equipment that requires your full attention
+- Attempt to extract, replicate, or distribute the App's preset library, sigil generation algorithms, or any proprietary components
+
+---
+
+## 7. Health disclaimer
+
+**Spiral Breath+ is a wellness app, not a medical device.** It is not intended to diagnose, treat, cure, or prevent any disease or medical condition. Information and features within the App are for general wellness purposes and educational interest only and are not medical advice.
+
+Breath practices can produce strong physical and psychological effects. **Consult your healthcare provider before beginning any breathing practice**, especially if you:
+
+- Are pregnant
+- Have a history of cardiovascular disease, high or low blood pressure, or stroke
+- Have asthma, COPD, or any chronic respiratory condition
+- Have a history of seizures or epilepsy
+- Have a history of panic attacks, anxiety disorders, PTSD, or other mental health conditions
+- Have recently had surgery
+- Take medications affecting heart rate or blood pressure
+
+**Stop immediately and seek medical attention** if you experience dizziness, chest pain, shortness of breath, lightheadedness, fainting, or any unusual physical or emotional symptom during or after a session.
+
+You use Spiral Breath+ at your own risk. We do not assume responsibility for any outcomes related to your use of the App.
+
+---
+
+## 8. Intellectual property
+
+The App, its design, code, presets, sigil generation algorithms, copy, branding, and all related content are owned by Spiral Breath+ and protected by intellectual property law. Nothing in these terms transfers ownership of any of those rights to you.
+
+The sigil artifacts your sessions generate are computed from your inputs. You may share, save, or repost the resulting share cards for personal use. Commercial reuse of the share-card design template or app screenshots requires our written permission.
+
+---
+
+## 9. Disclaimers and limitation of liability
+
+THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL SPIRAL BREATH+, ITS OPERATORS, OR ITS LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR RELATING TO YOUR USE OF THE APP.
+
+Our total liability for any claim arising out of or relating to the App or these terms is limited to the greater of: (a) the amount you paid us for the App in the twelve months preceding the claim, or (b) USD $50.
+
+Some jurisdictions do not allow the exclusion of certain warranties or the limitation of liability for incidental or consequential damages, so some of the above limitations may not apply to you.
+
+---
+
+## 10. Apple App Store terms
+
+You acknowledge that these terms are between you and Spiral Breath+, not Apple. Apple has no responsibility for the App or its content. To the extent these terms conflict with Apple's standard End User License Agreement for App Store apps, Apple's terms govern.
+
+Apple is a third-party beneficiary of these terms and may enforce them against you as a user of the App.
+
+In the event of any failure of the App to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price for the App if applicable. Apple has no other warranty obligation with respect to the App.
+
+---
+
+## 11. Modifications to the service
+
+We may update, change, or discontinue features of the App at any time. We will not remove access to your existing session history or sigils within the free tier as a result of feature changes, unless the App itself is discontinued.
+
+If the App is ever discontinued, we will provide reasonable advance notice through the App and the website, and active paid subscriptions will not be charged for renewals beyond that point.
+
+---
+
+## 12. Termination
+
+These terms remain in effect for as long as you use the App. You may terminate by deleting the App. We may suspend or terminate your license at any time if you violate these terms.
+
+Termination of your license does not entitle you to any refund of subscription fees already paid; refund requests are subject to Apple's policy.
+
+---
+
+## 13. Governing law
+
+These terms are governed by the laws of the State of California, United States, without regard to its conflict-of-laws principles. Any dispute arising out of these terms or your use of the App will be resolved in the state or federal courts located in California, and you consent to the jurisdiction of those courts. If you are a consumer based outside California, the mandatory consumer protections of your jurisdiction also apply where required by law.
+
+---
+
+## 14. Changes to these terms
+
+We may revise these terms from time to time. If we make material changes, we will update the effective date at the top and notify users inside the App on the next launch following the change. Your continued use of the App after a change indicates acceptance of the revised terms. If you do not agree to a revision, you may delete the App and discontinue use.
+
+---
+
+## 15. Contact
+
+Questions about these terms:
+
+**support@spiralbreath.app**
+
+Spiral Breath+
+United States

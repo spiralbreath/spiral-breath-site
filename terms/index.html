@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Spiral Breath+</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --black:#020205;
+  --deep:#06060f;
+  --surface:#0c0c1a;
+  --cyan:#00d4c8;
+  --cyan-lo:#00a89e;
+  --gold:#c8a84b;
+  --text:#f0ede4;
+  --muted:#a8a49a;
+  --dim:#5a5852;
+  --border:rgba(200,168,75,0.1);
+}
+body{
+  background:var(--black);
+  color:var(--text);
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  line-height:1.7;
+  font-size:18px;
+  padding:5rem 1.5rem 6rem;
+}
+.wrap{max-width:760px;margin:0 auto;}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2rem;background:rgba(2,2,5,.92);
+  backdrop-filter:blur(20px);
+  border-bottom:.5px solid rgba(255,255,255,.04);
+}
+.nav a{color:var(--text);text-decoration:none;font-family:'Rajdhani',sans-serif;
+  font-size:1.05rem;letter-spacing:.30em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.7rem;}
+.nav img{width:42px;height:42px;border-radius:5px;}
+.nav .back{font-size:.88rem;letter-spacing:.18em;color:var(--muted);}
+.nav .back:hover{color:var(--cyan);}
+
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;color:var(--text);
+  font-size:clamp(2rem,4vw,3.2rem);
+  letter-spacing:-.01em;line-height:1.05;
+  margin-bottom:1rem;
+}
+h2{
+  color:var(--cyan-lo);
+  font-family:'Rajdhani',sans-serif;
+  font-weight:400;
+  font-size:1.4rem;letter-spacing:.04em;
+  margin-top:3rem;margin-bottom:.8rem;
+}
+h3{
+  color:var(--gold);
+  font-family:'Rajdhani',sans-serif;
+  font-weight:400;font-size:1.15rem;letter-spacing:.04em;
+  margin-top:2rem;margin-bottom:.6rem;
+}
+p{margin-bottom:1.1rem;color:var(--muted);}
+strong{color:var(--text);font-weight:500;}
+em{color:var(--text);}
+a{color:var(--cyan-lo);text-decoration:none;border-bottom:1px solid rgba(0,168,158,.3);}
+a:hover{color:var(--cyan);border-bottom-color:var(--cyan);}
+ul{margin:0 0 1.2rem 1.4rem;color:var(--muted);}
+li{margin-bottom:.5rem;}
+hr{
+  border:none;height:.5px;background:var(--border);
+  margin:2.5rem 0;
+}
+code{
+  font-family:ui-monospace,'SF Mono',Menlo,monospace;
+  background:rgba(255,255,255,.04);
+  color:var(--cyan-lo);
+  padding:.1em .35em;border-radius:3px;font-size:.92em;
+}
+table{
+  width:100%;border-collapse:collapse;margin:1.2rem 0 2rem;
+  font-family:'Rajdhani',sans-serif;
+}
+th,td{
+  padding:.7rem 1rem;text-align:left;
+  border-bottom:.5px solid var(--border);
+  color:var(--muted);font-size:.95rem;
+}
+th{color:var(--text);font-weight:500;letter-spacing:.05em;}
+.effective{
+  color:var(--gold);font-style:italic;
+  margin-bottom:2.5rem;font-size:1.05rem;
+}
+footer{
+  border-top:.5px solid var(--border);
+  margin-top:4rem;padding-top:1.5rem;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  font-family:'Rajdhani',sans-serif;font-size:.85rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+footer a{color:var(--muted);border-bottom:none;}
+footer a:hover{color:var(--cyan);}
+@media(max-width:480px){
+  body{font-size:16px;padding:5rem 1.1rem 4rem;}
+  .nav{padding:.75rem 1.1rem;}
+  .nav a{font-size:.95rem;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" aria-label="Spiral Breath home">
+    <img src="/assets/images/logo.png" alt="Spiral Breath+">
+    <span>Spiral Breath</span>
+  </a>
+  <a href="/" class="back">← Back</a>
+</nav>
+
+<main class="wrap">
+<h1>Terms of Service</h1>
+
+<p class="effective"><strong>Effective date: June 4, 2026</strong></p>
+
+<p>These terms govern your use of the Spiral Breath+ application ("the App") on iOS. By downloading or using the App, you agree to these terms. If you do not agree, please do not use the App.</p>
+
+<hr/>
+
+<h2>1. The Service</h2>
+
+<p>Spiral Breath+ is a structured breathwork practice app that provides:</p>
+
+<ul>
+<li>Configurable breath sessions with phase timing, audio cues, and visual guidance</li>
+<li>Real-time breath detection through your device's microphone</li>
+<li>Coherence scoring across six tiers</li>
+<li>Generation of unique geometric sigils from your session inputs</li>
+<li>A Breath Map and archive of your practice history</li>
+<li>Practice journeys (multi-day arcs)</li>
+<li>A library of curated presets, with additional content available under the Spiral Breath+ subscription</li>
+<li>Optional AI Reflection using your own Anthropic API key</li>
+<li>QR-code exchange of breath exercises</li>
+</ul>
+
+<p>The App is available in two tiers — a free tier with a curated set of features and Spiral Breath+ ("Plus"), a paid subscription that unlocks the full feature set.</p>
+
+<hr/>
+
+<h2>2. License</h2>
+
+<p>We grant you a limited, personal, non-exclusive, non-transferable, revocable license to use the App on iOS devices you own or control, subject to these terms and the Apple App Store Terms of Service. You may not:</p>
+
+<ul>
+<li>Reverse engineer, decompile, or disassemble the App</li>
+<li>Modify or create derivative works of the App</li>
+<li>Distribute, sublicense, or sell access to the App</li>
+<li>Use the App for any unlawful purpose</li>
+</ul>
+
+<p>This license terminates automatically if you violate these terms.</p>
+
+<hr/>
+
+<h2>3. Subscriptions (Spiral Breath+)</h2>
+
+<h3>Pricing</h3>
+
+<ul>
+<li><strong>Monthly:</strong> $12.99 USD per month</li>
+<li><strong>Annual:</strong> $79.99 USD per year (approximately $6.67 per month)</li>
+</ul>
+
+<p>Prices in other regions are set by Apple and displayed in your local currency before purchase. Annual subscriptions include Apple Family Sharing — one subscription unlocks Plus for up to six family members in your Apple Family.</p>
+
+<h3>Free trial</h3>
+
+<p>New subscribers may receive a 7-day free trial. Payment information is collected at sign-up. You will not be charged if you cancel before the trial ends.</p>
+
+<h3>Auto-renewal</h3>
+
+<p><strong>Spiral Breath+ subscriptions are auto-renewing.</strong> Payment is charged to your Apple ID on confirmation of purchase. Subscriptions automatically renew at the end of each period at the then-current rate unless you cancel at least 24 hours before the renewal date. Your account is charged for renewal within 24 hours before the end of the current period.</p>
+
+<h3>Cancellation</h3>
+
+<p>You can cancel at any time through iOS Settings → Apple ID → Subscriptions, or through the "Manage Subscription" link inside the App. Cancellation takes effect at the end of the current paid period; Plus features remain available until then.</p>
+
+<h3>Refunds</h3>
+
+<p>All payments are processed by Apple under Apple's refund policy. We cannot process refunds directly. To request a refund, use Apple's standard refund process at reportaproblem.apple.com.</p>
+
+<h3>Founding Member price lock</h3>
+
+<p>If you subscribe during the first 90 days following Spiral Breath+'s App Store launch, your subscription rate is locked at the launch price for the lifetime of your continuous subscription. If you cancel your subscription and later re-subscribe, the then-current price will apply.</p>
+
+<hr/>
+
+<h2>4. The free tier</h2>
+
+<p>The free tier includes a curated set of features described inside the App and on spiralbreath.app. The free tier requires no payment and has no time limit. Features in the free tier may change over time; we will not remove access to your existing session history, custom presets, or generated sigils if you remain on the free tier.</p>
+
+<hr/>
+
+<h2>5. Your content</h2>
+
+<p>When you create custom presets, journeys, affirmations, or other content within the App, you retain all rights to that content. We do not claim ownership. Because all your content is stored locally on your device, we do not have access to it and cannot reproduce, share, or use it.</p>
+
+<p>When you share a sigil card or scan/transmit a QR-encoded exercise to another person, you are responsible for what you share and to whom.</p>
+
+<hr/>
+
+<h2>6. Acceptable use</h2>
+
+<p>You agree not to:</p>
+
+<ul>
+<li>Use the App in a way that could harm yourself or others</li>
+<li>Use the App while operating a vehicle or any equipment that requires your full attention</li>
+<li>Attempt to extract, replicate, or distribute the App's preset library, sigil generation algorithms, or any proprietary components</li>
+</ul>
+
+<hr/>
+
+<h2>7. Health disclaimer</h2>
+
+<p><strong>Spiral Breath+ is a wellness app, not a medical device.</strong> It is not intended to diagnose, treat, cure, or prevent any disease or medical condition. Information and features within the App are for general wellness purposes and educational interest only and are not medical advice.</p>
+
+<p>Breath practices can produce strong physical and psychological effects. <strong>Consult your healthcare provider before beginning any breathing practice</strong>, especially if you:</p>
+
+<ul>
+<li>Are pregnant</li>
+<li>Have a history of cardiovascular disease, high or low blood pressure, or stroke</li>
+<li>Have asthma, COPD, or any chronic respiratory condition</li>
+<li>Have a history of seizures or epilepsy</li>
+<li>Have a history of panic attacks, anxiety disorders, PTSD, or other mental health conditions</li>
+<li>Have recently had surgery</li>
+<li>Take medications affecting heart rate or blood pressure</li>
+</ul>
+
+<p><strong>Stop immediately and seek medical attention</strong> if you experience dizziness, chest pain, shortness of breath, lightheadedness, fainting, or any unusual physical or emotional symptom during or after a session.</p>
+
+<p>You use Spiral Breath+ at your own risk. We do not assume responsibility for any outcomes related to your use of the App.</p>
+
+<hr/>
+
+<h2>8. Intellectual property</h2>
+
+<p>The App, its design, code, presets, sigil generation algorithms, copy, branding, and all related content are owned by Spiral Breath+ and protected by intellectual property law. Nothing in these terms transfers ownership of any of those rights to you.</p>
+
+<p>The sigil artifacts your sessions generate are computed from your inputs. You may share, save, or repost the resulting share cards for personal use. Commercial reuse of the share-card design template or app screenshots requires our written permission.</p>
+
+<hr/>
+
+<h2>9. Disclaimers and limitation of liability</h2>
+
+<p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.</p>
+
+<p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL SPIRAL BREATH+, ITS OPERATORS, OR ITS LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR RELATING TO YOUR USE OF THE APP.</p>
+
+<p>Our total liability for any claim arising out of or relating to the App or these terms is limited to the greater of: (a) the amount you paid us for the App in the twelve months preceding the claim, or (b) USD $50.</p>
+
+<p>Some jurisdictions do not allow the exclusion of certain warranties or the limitation of liability for incidental or consequential damages, so some of the above limitations may not apply to you.</p>
+
+<hr/>
+
+<h2>10. Apple App Store terms</h2>
+
+<p>You acknowledge that these terms are between you and Spiral Breath+, not Apple. Apple has no responsibility for the App or its content. To the extent these terms conflict with Apple's standard End User License Agreement for App Store apps, Apple's terms govern.</p>
+
+<p>Apple is a third-party beneficiary of these terms and may enforce them against you as a user of the App.</p>
+
+<p>In the event of any failure of the App to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price for the App if applicable. Apple has no other warranty obligation with respect to the App.</p>
+
+<hr/>
+
+<h2>11. Modifications to the service</h2>
+
+<p>We may update, change, or discontinue features of the App at any time. We will not remove access to your existing session history or sigils within the free tier as a result of feature changes, unless the App itself is discontinued.</p>
+
+<p>If the App is ever discontinued, we will provide reasonable advance notice through the App and the website, and active paid subscriptions will not be charged for renewals beyond that point.</p>
+
+<hr/>
+
+<h2>12. Termination</h2>
+
+<p>These terms remain in effect for as long as you use the App. You may terminate by deleting the App. We may suspend or terminate your license at any time if you violate these terms.</p>
+
+<p>Termination of your license does not entitle you to any refund of subscription fees already paid; refund requests are subject to Apple's policy.</p>
+
+<hr/>
+
+<h2>13. Governing law</h2>
+
+<p>These terms are governed by the laws of the State of California, United States, without regard to its conflict-of-laws principles. Any dispute arising out of these terms or your use of the App will be resolved in the state or federal courts located in California, and you consent to the jurisdiction of those courts. If you are a consumer based outside California, the mandatory consumer protections of your jurisdiction also apply where required by law.</p>
+
+<hr/>
+
+<h2>14. Changes to these terms</h2>
+
+<p>We may revise these terms from time to time. If we make material changes, we will update the effective date at the top and notify users inside the App on the next launch following the change. Your continued use of the App after a change indicates acceptance of the revised terms. If you do not agree to a revision, you may delete the App and discontinue use.</p>
+
+<hr/>
+
+<h2>15. Contact</h2>
+
+<p>Questions about these terms:</p>
+
+<p><strong>support@spiralbreath.app</strong></p>
+
+<p>Spiral Breath+</p>
+<p>United States</p>
+
+
+<footer>
+  <span>© 2026 Spiral Breath</span>
+  <span>
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="/privacy">Privacy</a> &nbsp;·&nbsp;
+    <a href="/terms">Terms</a>
+  </span>
+</footer>
+</main>
+
+</body>
+</html>

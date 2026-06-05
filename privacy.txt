@@ -1,0 +1,133 @@
+# Privacy Policy
+
+**Effective date: June 4, 2026**
+
+This policy describes what data Spiral Breath+ collects, how that data is used, and what choices you have. The short version: we built Spiral Breath+ to keep your practice private. Almost nothing leaves your phone.
+
+---
+
+## In one paragraph
+
+Spiral Breath+ is a local-first app. Your breath sessions, sigils, journeys, custom presets, and Breath Map all live in storage on your device. We do not run analytics SDKs. We do not track you across apps or websites. We do not have user accounts or servers that hold your data. The app uses your microphone during a session to detect inhale and exhale — that audio is processed in memory only and is never recorded, stored, or transmitted. The only third party we work with for any user data is Apple, who handles your subscription billing and downloads through the App Store.
+
+---
+
+## What information we collect
+
+### On-device data (never leaves your phone unless you choose to share it)
+
+When you use Spiral Breath+, the app stores the following in your device's local app storage:
+
+- **Breath session entries** — timestamp, preset used, cycle count, phase durations, coherence score, generated sigil parameters, and any affirmation text you typed during the session
+- **Journey progress** — which journeys you've started, days completed, session timestamps
+- **Custom presets and custom journeys** — anything you create or save
+- **Settings** — preferences for voice, audio tones, notifications, durations
+- **Discovered states and milestones** — achievements you've earned through repeated practice
+- **Lifetime statistics** — total sessions, total minutes practiced, share cards generated
+
+This data is stored in iOS local storage (AsyncStorage). It does not transmit to us. If you delete the app, this data is removed with it. If you reinstall later, you start fresh.
+
+### Microphone use (live processing only)
+
+When you start a breath session, the app accesses your device microphone to detect when you are inhaling and exhaling. This is how Breath Lock scoring works — the app meets your actual breath rhythm. The audio is:
+
+- Processed entirely in memory in real time
+- **Never recorded to disk**
+- **Never transmitted** to us or any third party
+- **Never used for speech recognition** or identification of any kind
+
+When the session ends, the microphone stream closes. No audio file is created.
+
+### Apple App Store data (handled by Apple)
+
+When you purchase Spiral Breath+ or start a subscription, Apple handles payment processing. We never see your credit card number, billing address, or Apple ID. Apple provides us with anonymous, aggregate information about subscriptions through App Store Connect — for example, how many users subscribed in a given week — but we do not receive personally identifying purchase data.
+
+### Crash reports
+
+Apple's standard crash reporting (built into iOS) may send crash diagnostics to Apple if you have opted in at the OS level. We can view aggregated, anonymized crash reports in App Store Connect to fix bugs. We do not deploy a third-party crash reporter at this time.
+
+### Optional outreach (if you contact us)
+
+If you email us at support@spiralbreath.app — through a Report Bug, Suggest Improvement, or Contact Support link inside the app — we receive your message, your email address, and any device information you choose to include. We use that information only to respond to you.
+
+---
+
+## What we do not collect
+
+To be explicit, we do not collect:
+
+- Your name, email, phone number, or any contact details, unless you email us
+- Your real-world location, GPS, or IP-based location
+- Your contacts, calendar, photos, or files outside the app
+- Your activity in other apps or on the web
+- Your identifying device advertising identifier (IDFA)
+- Any behavioral profile, advertising profile, or marketing segmentation
+- Biometric data, health data, or HealthKit data (Spiral Breath+ does not integrate with Apple Health)
+- Any audio recording, ever
+
+We do not sell, rent, share, or transfer your personal information to third parties. We do not have third parties to share it with.
+
+---
+
+## How information is used
+
+The on-device data is used to:
+
+- Show you your own practice history, Breath Map, sigil archive, statistics, and journey progress
+- Generate new sigils from your session inputs
+- Personalize the experience (your settings, your custom content)
+- Reflect on your own practice through the AI Reflection feature, if you choose to use it
+
+The AI Reflection feature is opt-in and requires your own Anthropic API key, stored on-device. When you use AI Reflection, your last 20 session summaries are sent to Anthropic's Claude API with your key. We do not see those requests. We do not log them. Anthropic's privacy policy applies to that interaction.
+
+If you do not use AI Reflection, no data leaves your device through that feature.
+
+---
+
+## QR code sharing
+
+Spiral Breath+ lets you generate and scan QR codes containing breath exercise definitions. When you generate a QR code for an exercise, the encoded data is the exercise definition only — preset name, breath pattern, tone, affirmations — and is shared peer-to-peer through whatever channel you choose (Messages, email, AirDrop, social). It does not transit our servers. When you scan a QR code, the data is imported directly into your app's local storage.
+
+---
+
+## Your choices
+
+- **Microphone access** — You can revoke microphone permission at any time through iOS Settings → Privacy & Security → Microphone → Spiral Breath. Without microphone access, the live breath detection feature won't function, but the rest of the app continues to work.
+- **Delete your data** — Deleting the app from your iPhone removes all locally stored data. There is no separate "delete account" because there is no account.
+- **Manage your subscription** — Through iOS Settings → Apple ID → Subscriptions, or through a link inside the app. Apple manages subscription billing; we cannot process refunds or cancellations directly. Refund requests go through Apple's standard refund process.
+- **Stop using AI Reflection** — Remove your Anthropic API key from the in-app settings at any time. No further requests will be made.
+
+---
+
+## Children's privacy
+
+Spiral Breath+ is not directed at children under 13 and we do not knowingly collect data from children under 13. The App Store age rating for Spiral Breath+ is 17+. If you believe a child under 13 has been using the app, please contact us at support@spiralbreath.app and any data associated with them (which would be local-device data only) can be addressed.
+
+---
+
+## International users
+
+Spiral Breath+ is available worldwide through the Apple App Store. Because all session data lives on your device, no international data transfer occurs through us. For California residents (CCPA) and residents of the European Economic Area, United Kingdom, and Switzerland (GDPR), your rights of access, correction, and deletion are satisfied by the architecture itself — your data is in your possession and not in ours. If you have any privacy request you'd like us to address, contact us at support@spiralbreath.app.
+
+---
+
+## Security
+
+Local data is stored using iOS's standard application storage, which is sandboxed to the app and protected by your device's security model. We do not transmit user data to servers, which removes the most common class of data breach risk.
+
+---
+
+## Changes to this policy
+
+If we ever update this policy, we will update the effective date at the top and announce the change inside the app on next launch. Material changes will be summarized in plain language so you can decide whether you want to continue using the app.
+
+---
+
+## Contact
+
+For any privacy question or request:
+
+**support@spiralbreath.app**
+
+Spiral Breath+
+United States
