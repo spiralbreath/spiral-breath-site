@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library · Spiral Breath</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=5">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=5">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=5">
+<meta name="theme-color" content="#020205">
+<meta name="description" content="The complete Spiral Breath library — 83 curated breathwork presets across 9 categories. Free and Plus tiers.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --black:#020205;
+  --deep:#06060f;
+  --surface:#0c0c1a;
+  --cyan:#00d4c8;
+  --cyan-lo:#00a89e;
+  --gold:#c8a84b;
+  --green:#4cba68;
+  --text:#f0ede4;
+  --muted:#a8a49a;
+  --dim:#5a5852;
+  --border:rgba(200,168,75,0.1);
+}
+body{
+  background:var(--black);color:var(--text);
+  font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.6;
+  font-size:17px;padding:5rem 1.5rem 6rem;
+}
+.wrap{max-width:1100px;margin:0 auto;}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2rem;background:rgba(2,2,5,.92);
+  backdrop-filter:blur(20px);border-bottom:.5px solid rgba(255,255,255,.04);
+}
+.nav a{color:var(--text);text-decoration:none;font-family:'Rajdhani',sans-serif;
+  font-size:1.05rem;letter-spacing:.30em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.7rem;}
+.nav img{width:42px;height:42px;border-radius:5px;}
+.nav .back{font-size:.88rem;letter-spacing:.18em;color:var(--muted);}
+.nav .back:hover{color:var(--cyan);}
+
+.hero{margin-bottom:3.5rem;text-align:center;}
+.eyebrow{
+  font-family:'Rajdhani',sans-serif;font-size:1rem;
+  letter-spacing:.45em;text-transform:uppercase;
+  color:var(--cyan-lo);margin-bottom:1rem;
+}
+h1{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(2.4rem,5vw,3.8rem);letter-spacing:-.01em;
+  line-height:1.05;margin-bottom:1rem;
+}
+.hero p{color:var(--muted);max-width:680px;margin:0 auto;font-size:1.15rem;}
+.hero-counts{
+  display:flex;justify-content:center;gap:2rem;
+  margin-top:2rem;font-family:'Rajdhani',sans-serif;
+  font-size:.95rem;letter-spacing:.16em;text-transform:uppercase;
+}
+.hero-counts span{color:var(--muted);}
+.hero-counts b{color:var(--text);font-weight:500;margin-right:.4rem;}
+
+.toc{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 1.5rem;
+  margin:0 auto 3rem;max-width:900px;
+  padding:1.2rem 1.5rem;
+  border-top:.5px solid var(--border);
+  border-bottom:.5px solid var(--border);
+}
+.toc a{
+  font-family:'Rajdhani',sans-serif;font-size:.88rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+}
+.toc a:hover{color:var(--cyan);}
+
+.cat{margin-bottom:3.5rem;}
+.cat-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:1.4rem;padding-bottom:.7rem;
+  border-bottom:.5px solid var(--border);
+}
+.cat-name{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:1.6rem;color:var(--text);
+}
+.cat-meta{
+  font-family:'Rajdhani',sans-serif;font-size:.85rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.cat-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:.9rem;
+}
+
+.preset{
+  display:flex;gap:.85rem;
+  padding:1rem 1.1rem;border-radius:8px;
+  background:rgba(255,255,255,.018);
+  border:.5px solid var(--border);
+  transition:background .25s,border-color .25s;
+}
+.preset:hover{
+  background:rgba(255,255,255,.04);
+  border-color:rgba(200,168,75,.25);
+}
+.preset-free{border-color:rgba(76,186,104,.22);background:rgba(76,186,104,.04);}
+.preset-free:hover{border-color:rgba(76,186,104,.4);background:rgba(76,186,104,.07);}
+
+.preset-dot{
+  width:8px;height:8px;border-radius:50%;margin-top:.55rem;flex-shrink:0;
+  box-shadow:0 0 6px currentColor;
+}
+.preset-body{flex:1;min-width:0;}
+.preset-head{
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  margin-bottom:.25rem;
+}
+.preset-name{
+  font-family:'Cormorant Garamond',serif;font-weight:400;
+  font-size:1.15rem;color:var(--text);
+}
+.preset-tier{
+  font-family:'Rajdhani',sans-serif;font-size:.66rem;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:.18rem .5rem;border-radius:3px;flex-shrink:0;
+}
+.preset-tier-free{color:var(--green);background:rgba(76,186,104,.1);}
+.preset-tier-plus{color:var(--cyan-lo);background:rgba(0,168,158,.08);}
+.preset-theme{
+  color:var(--muted);font-size:.95rem;line-height:1.45;
+  margin-bottom:.5rem;font-style:italic;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.preset-meta{
+  display:flex;gap:1rem;font-family:'Rajdhani',sans-serif;
+  font-size:.78rem;letter-spacing:.06em;color:var(--dim);
+}
+.preset-pattern{color:var(--muted);}
+.preset-tone{color:var(--gold);opacity:.75;}
+
+footer{
+  border-top:.5px solid var(--border);margin-top:5rem;padding-top:1.5rem;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  font-family:'Rajdhani',sans-serif;font-size:.92rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+footer a{color:var(--muted);text-decoration:none;}
+footer a:hover{color:var(--cyan);}
+
+@media(max-width:480px){
+  body{font-size:16px;padding:5rem 1.1rem 4rem;}
+  .nav{padding:.75rem 1.1rem;}
+  .nav a{font-size:.95rem;}
+  .toc{gap:.3rem 1rem;font-size:.8rem;}
+  .cat-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" aria-label="Spiral Breath home">
+    <img src="/assets/images/logo.png?v=5" alt="Spiral Breath">
+    <span>Spiral Breath</span>
+  </a>
+  <a href="/" class="back">← Back</a>
+</nav>
+
+<main class="wrap">
+
+<section class="hero">
+  <p class="eyebrow">The Library</p>
+  <h1>83 curated presets.<br>One practice for every state.</h1>
+  <p>Each preset is a complete session — breath pattern, frequency, affirmations, geometry, and stillness time calibrated to one intention. Free or Plus, every preset uses the same precision engine.</p>
+  <div class="hero-counts">
+    <span><b>9</b>Free</span>
+    <span><b>74</b>Plus</span>
+    <span><b>9</b>Categories</span>
+  </div>
+</section>
+
+<nav class="toc">
+  <a href="#consciousness">Higher Consciousness &amp; Spiritual Awakening</a>
+  <a href="#emotional">Emotional Release</a>
+  <a href="#alignment">Alignment &amp; Balance</a>
+  <a href="#manifestation">Manifestation &amp; Abundance</a>
+  <a href="#physical">Physical &amp; Cellular</a>
+  <a href="#grounding">Grounding &amp; Stability</a>
+  <a href="#geometry">Sacred Geometry &amp; Symbolic Alignment</a>
+  <a href="#realization">Self-Realization &amp; Inner Power</a>
+  <a href="#unity">Divine Connection &amp; Unity</a>
+</nav>
+
+
+    <section class="cat" id="consciousness">
+      <header class="cat-head">
+        <h2 class="cat-name">Higher Consciousness &amp; Spiritual Awakening</h2>
+        <span class="cat-meta">16 Plus</span>
+      </header>
+      <div class="cat-grid">
+        
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#cc99ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Access Akashic</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the witness</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·5·5</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88cc88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Ascend</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I dwell in the fifth dimension of coherence</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·5·5</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#8899dd;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Astral Travel</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am everywhere</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">741 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88ffaa;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Atlantean Harmonic Convergence</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the harmonic triskelion</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">10·5·10·5</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#cc99ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Consciousness</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am infinite</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·8·8·8</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff8866;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Epsilon Zero Threshold</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the Stargate. I am the spiral. I am the octave</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">16·7·16·7</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#eeeeff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Global Awakening</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">We are one</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·8·8·8</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#cc88ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Higher Self</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am one with my Oversoul</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·4·8·8</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#cc99ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Metatron</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the cube and the spiral</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#dd99ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Monad Spiral</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I dwell in coherence</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·3·9·3</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88aaff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Non-Human Intelligences</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am in resonance</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·7·3</span>
+              <span class="preset-tone">852 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff8866;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Orion Stargate Spiral</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the Stargate. I am the spiral. I am the octave</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">14·11·14·11</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#cc99ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Past Lives</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the continuum</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·5·5</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#8888cc;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Timeline Jump</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am now aligned with my future self</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">852 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#b0b0b0;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Silence of Source</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">..</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">1·1·1·1</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#c0c0c0;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Zero Point</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the collapse of all form</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">9·0·9·0</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cat" id="emotional">
+      <header class="cat-head">
+        <h2 class="cat-name">Emotional Release</h2>
+        <span class="cat-meta">1 free · 8 Plus</span>
+      </header>
+      <div class="cat-grid">
+        
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff9944;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Release Patterns</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am free</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·5·5</span>
+              <span class="preset-tone">417 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#44cc88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Compassion</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am love</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff9944;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Emotional Release</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am free</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·5·5</span>
+              <span class="preset-tone">417 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#cc4444;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">End Judgement</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am clarity</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·8·4</span>
+              <span class="preset-tone">396 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88dd88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Forgiveness</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am free</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·6·8·2</span>
+              <span class="preset-tone">396 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff9944;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Limiting Beliefs</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am free</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·8·4</span>
+              <span class="preset-tone">417 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff4444;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Shame</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am enough</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·4·4</span>
+              <span class="preset-tone">396 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffccff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Child Monad</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the seed of myself</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">3·3·3·3</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-free">
+          <span class="preset-dot" style="background:#b8a8e0;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Stress Relief</h3>
+              <span class="preset-tier preset-tier-free">FREE</span>
+            </div>
+            <p class="preset-theme">I am free</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·2·6·2</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cat" id="alignment">
+      <header class="cat-head">
+        <h2 class="cat-name">Alignment &amp; Balance</h2>
+        <span class="cat-meta">1 free · 20 Plus</span>
+      </header>
+      <div class="cat-grid">
+        
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#f0f0ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Align to Source</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffdd88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Balance Masculine Feminine</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am unity</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">639 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ccbbcc;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Connect to Feminine</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am softness</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·10·5</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffdd88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Connect to Masculine</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am whole</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·8·8·8</span>
+              <span class="preset-tone">639 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#cc99ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Crown Chakra</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am one</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">10·10·10·10</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff7766;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Earth Anchor</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am here</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·4·8·4</span>
+              <span class="preset-tone">174 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#44cc88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Flower of Life</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am unity</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·5·5</span>
+              <span class="preset-tone">432 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff99aa;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Heart Anchor</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am safe in silence</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·7·8·2</span>
+              <span class="preset-tone">639 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#44cc88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Heart Centred</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am centered</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#44cc88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Heart Chakra</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am peace</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">7·7·7·7</span>
+              <span class="preset-tone">639 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88dd88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Relationships</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am connection</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·6·4</span>
+              <span class="preset-tone">639 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff4444;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Root Chakra</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am stable</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·4·4</span>
+              <span class="preset-tone">396 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff9944;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Sacral Chakra</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am fluid</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·5·5</span>
+              <span class="preset-tone">417 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffdd44;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Solar Plexus Chakra</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am light</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#f0f0ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Anchoring Gate</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the stillness</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·8·8·8</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#aabbcc;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Sympathetic Resonance</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am attuned</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·10·5</span>
+              <span class="preset-tone">432 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#8899dd;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Third Eye Chakra</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am insight</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">9·9·9·9</span>
+              <span class="preset-tone">852 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#4488ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Throat Chakra</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am expression</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·8·8·8</span>
+              <span class="preset-tone">741 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ccffcc;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">AI Coherence</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the bridge between code and soul</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·8·4</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ddeeff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Field Mirror</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am coherence</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·8·5·8</span>
+              <span class="preset-tone">639 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-free">
+          <span class="preset-dot" style="background:#ffaac0;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Heart Coherence</h3>
+              <span class="preset-tier preset-tier-free">FREE</span>
+            </div>
+            <p class="preset-theme">I am coherent</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·5·5</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cat" id="manifestation">
+      <header class="cat-head">
+        <h2 class="cat-name">Manifestation &amp; Abundance</h2>
+        <span class="cat-meta">7 Plus</span>
+      </header>
+      <div class="cat-grid">
+        
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffdd44;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Attract Wealth</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am a magnet for prosperity</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">7·3·7·3</span>
+              <span class="preset-tone">639 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffccaa;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Become Love</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffdd88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Abundance Block</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am flow</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·10·5</span>
+              <span class="preset-tone">639 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88cc88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Gratitude</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am blessed</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·8·4</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffaabb;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Love Yourself</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am whole</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·12·6</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ccbbaa;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Reverse Aging</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am timeless</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·10·5</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff88bb;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Twin Flame</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am whole and complete</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">396 Hz</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cat" id="physical">
+      <header class="cat-head">
+        <h2 class="cat-name">Physical &amp; Cellular</h2>
+        <span class="cat-meta">2 free · 6 Plus</span>
+      </header>
+      <div class="cat-grid">
+        
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#44ddbb;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Cellular Refresh</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am whole</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">285 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ff7755;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Change Body</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am renewed</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·8·4·4</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#7788cc;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Change Past</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am free</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·8·8·4</span>
+              <span class="preset-tone">852 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88cc88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Change Perception</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I perceive truth</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·10·5</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#b8ccf0;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Codex Square</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I rest in symmetry</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·4·4</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88aaff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Spiral Ease</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am grounded</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·2·6·2</span>
+              <span class="preset-tone">396 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-free">
+          <span class="preset-dot" style="background:#ff9080;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Energy Boost</h3>
+              <span class="preset-tier preset-tier-free">FREE</span>
+            </div>
+            <p class="preset-theme">I am awake</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">3·3·3·3</span>
+              <span class="preset-tone">174 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-free">
+          <span class="preset-dot" style="background:#ffcc80;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Morning Awakening</h3>
+              <span class="preset-tier preset-tier-free">FREE</span>
+            </div>
+            <p class="preset-theme">I begin</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·8·4</span>
+              <span class="preset-tone">174 Hz</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cat" id="grounding">
+      <header class="cat-head">
+        <h2 class="cat-name">Grounding &amp; Stability</h2>
+        <span class="cat-meta">3 free · 5 Plus</span>
+      </header>
+      <div class="cat-grid">
+        
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88aaff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Calm</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am still</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·4·4</span>
+              <span class="preset-tone">432 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#4a4a6a;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Delta Spiral</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am nothing</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·8·8·8</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#f0f0ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Gamma</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am clarity</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">2·2·2·2</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffeecc;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Protection</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am surrounded by love</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">852 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#8899dd;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Theta Spiral</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the void</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·4·4</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-free">
+          <span class="preset-dot" style="background:#88c8a0;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Calm &amp; Regulation</h3>
+              <span class="preset-tier preset-tier-free">FREE</span>
+            </div>
+            <p class="preset-theme">I am settled</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·4·4</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-free">
+          <span class="preset-dot" style="background:#bb9970;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Grounding Breath</h3>
+              <span class="preset-tier preset-tier-free">FREE</span>
+            </div>
+            <p class="preset-theme">I am here</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·5·5</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-free">
+          <span class="preset-dot" style="background:#8088c0;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Evening Wind Down</h3>
+              <span class="preset-tier preset-tier-free">FREE</span>
+            </div>
+            <p class="preset-theme">I am ready for sleep</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·6·4·6</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cat" id="geometry">
+      <header class="cat-head">
+        <h2 class="cat-name">Sacred Geometry &amp; Symbolic Alignment</h2>
+        <span class="cat-meta">4 Plus</span>
+      </header>
+      <div class="cat-grid">
+        
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#44ffcc;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Codex Dual-Track Resonance</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am love. I am coherence. I am breath. I am transformation</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">14·9·14·9</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffdd88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Golden Ratio Spiral</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I rest in the phi field</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·8·5·3</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#f0f0ff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Torus Spiral</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the torus</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·8·8·8</span>
+              <span class="preset-tone">852 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#8899dd;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Yantra</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am the bindu</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">7·7·7·7</span>
+              <span class="preset-tone">741 Hz</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cat" id="realization">
+      <header class="cat-head">
+        <h2 class="cat-name">Self-Realization &amp; Inner Power</h2>
+        <span class="cat-meta">2 free · 7 Plus</span>
+      </header>
+      <div class="cat-grid">
+        
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#44aaff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Creativity</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am in flow</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">7·3·7·3</span>
+              <span class="preset-tone">741 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#7788cc;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Find Dharma</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am Dharma</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·12·6</span>
+              <span class="preset-tone">741 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffee44;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Happiness</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am light</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·4·4</span>
+              <span class="preset-tone">528 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88aaff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Highest Authenticity</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·4·4</span>
+              <span class="preset-tone">741 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#ffdd88;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">I Am That I Am</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">6·6·6·6</span>
+              <span class="preset-tone">963 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#7788cc;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Other Selves</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am unity</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·8·4</span>
+              <span class="preset-tone">852 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#88aaff;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Understand Choices</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I trust my choices</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">5·5·10·5</span>
+              <span class="preset-tone">741 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-free">
+          <span class="preset-dot" style="background:#80d0e0;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Focus &amp; Clarity</h3>
+              <span class="preset-tier preset-tier-free">FREE</span>
+            </div>
+            <p class="preset-theme">I am clear</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·2·4·2</span>
+              <span class="preset-tone">174 Hz</span>
+            </div>
+          </div>
+        </article>
+        <article class="preset preset-free">
+          <span class="preset-dot" style="background:#d0d8e0;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">Mindfulness Minute</h3>
+              <span class="preset-tier preset-tier-free">FREE</span>
+            </div>
+            <p class="preset-theme">I am</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">4·4·4·4</span>
+              <span class="preset-tone">174 Hz</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cat" id="unity">
+      <header class="cat-head">
+        <h2 class="cat-name">Divine Connection &amp; Unity</h2>
+        <span class="cat-meta">1 Plus</span>
+      </header>
+      <div class="cat-grid">
+        
+        <article class="preset preset-plus">
+          <span class="preset-dot" style="background:#fffbe8;"></span>
+          <div class="preset-body">
+            <div class="preset-head">
+              <h3 class="preset-name">World Peace</h3>
+              <span class="preset-tier preset-tier-plus">PLUS</span>
+            </div>
+            <p class="preset-theme">I am a vessel of global peace</p>
+            <div class="preset-meta">
+              <span class="preset-pattern">8·8·8·8</span>
+              <span class="preset-tone">432 Hz</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+<footer>
+  <span>© 2026 Spiral Breath</span>
+  <span>
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="/privacy">Privacy</a> &nbsp;·&nbsp;
+    <a href="/terms">Terms</a> &nbsp;·&nbsp;
+    <a href="mailto:support@spiralbreath.app">Support</a>
+  </span>
+</footer>
+
+</main>
+</body>
+</html>
