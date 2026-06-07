@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All 19 Structured Journeys · Spiral Breath</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=5">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=5">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=5">
+<meta name="theme-color" content="#020205">
+<meta name="description" content="Explore all 19 structured breathwork journeys — from 5 days to 45. The First Spiral is free forever.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --black:#020205;
+  --deep:#06060f;
+  --surface:#0c0c1a;
+  --cyan:#00d4c8;
+  --cyan-lo:#00a89e;
+  --gold:#c8a84b;
+  --green:#4cba68;
+  --text:#f0ede4;
+  --muted:#a8a49a;
+  --dim:#5a5852;
+  --border:rgba(200,168,75,0.1);
+}
+body{
+  background:var(--black);color:var(--text);
+  font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.6;
+  font-size:17px;padding:5rem 1.5rem 6rem;
+}
+.wrap{max-width:1100px;margin:0 auto;}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2rem;background:rgba(2,2,5,.92);
+  backdrop-filter:blur(20px);border-bottom:.5px solid rgba(255,255,255,.04);
+}
+.nav a{color:var(--text);text-decoration:none;font-family:'Rajdhani',sans-serif;
+  font-size:1.05rem;letter-spacing:.30em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.7rem;}
+.nav img{width:42px;height:42px;border-radius:5px;}
+.nav .back{font-size:.88rem;letter-spacing:.18em;color:var(--muted);}
+.nav .back:hover{color:var(--cyan);}
+
+.eyebrow{
+  font-family:'Rajdhani',sans-serif;font-size:1rem;
+  letter-spacing:.45em;text-transform:uppercase;
+  color:var(--cyan-lo);margin-bottom:1rem;
+}
+h1{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(2.4rem,5vw,3.8rem);letter-spacing:-.01em;
+  line-height:1.05;margin-bottom:1rem;
+}
+h1 em{font-style:italic;color:var(--cyan-lo);}
+.lead{color:var(--muted);font-size:1.15rem;max-width:720px;margin:0 auto;}
+
+.meta-row{
+  display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;
+  margin-top:1.6rem;font-family:'Rajdhani',sans-serif;
+  font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);
+}
+.meta-row span{display:inline-flex;align-items:center;gap:.5rem;}
+.meta-row .dot{width:8px;height:8px;border-radius:50%;}
+.badge-plus{color:var(--cyan-lo);border:1px solid rgba(0,168,158,.3);padding:.25rem .75rem;}
+.badge-free{color:var(--green);border:1px solid rgba(76,186,104,.3);padding:.25rem .75rem;}
+
+.section-title{
+  font-family:'Rajdhani',sans-serif;font-size:.95rem;
+  letter-spacing:.35em;text-transform:uppercase;
+  color:var(--muted);margin:3.5rem 0 1.5rem;text-align:center;
+  padding-top:2rem;border-top:.5px solid var(--border);
+}
+
+/* Day-by-day arc (First Spiral only) */
+.day-list{display:flex;flex-direction:column;gap:1.2rem;}
+.day-row{
+  display:grid;grid-template-columns:80px 140px 1fr;gap:1.5rem;
+  padding:1.4rem 1.5rem;background:rgba(255,255,255,.015);
+  border:.5px solid var(--border);border-radius:6px;
+  align-items:start;
+}
+.day-num{
+  font-family:'Rajdhani',sans-serif;font-weight:500;
+  font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);
+}
+.day-phase{
+  font-family:'Rajdhani',sans-serif;font-size:.8rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+}
+.day-content{}
+.day-preset{
+  font-family:'Cormorant Garamond',serif;font-size:1.35rem;
+  font-style:italic;color:var(--text);margin-bottom:.3rem;
+}
+.day-focus{color:var(--muted);font-size:.98rem;line-height:1.55;}
+.day-intent{
+  display:inline-block;margin-top:.5rem;
+  font-family:'Rajdhani',sans-serif;font-size:.78rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--cyan-lo);
+}
+
+@media(max-width:680px){
+  .day-row{grid-template-columns:1fr;gap:.4rem;padding:1.2rem;}
+}
+
+/* Preset pool list (other journeys) */
+.preset-pool{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.8rem;
+}
+.preset-pool a{
+  display:block;padding:1rem 1.25rem;
+  border:.5px solid var(--border);border-radius:6px;
+  background:rgba(255,255,255,.015);
+  font-family:'Cormorant Garamond',serif;font-size:1.15rem;
+  font-style:italic;color:var(--text);text-decoration:none;
+  transition:border-color .2s,background .2s;
+}
+.preset-pool a:hover{
+  border-color:rgba(0,168,158,.35);
+  background:rgba(0,168,158,.04);
+}
+.pool-note{
+  text-align:center;color:var(--dim);font-style:italic;
+  margin-bottom:1.5rem;font-size:1rem;
+}
+
+.hint-box{
+  margin-top:3rem;padding:1.5rem 2rem;
+  border-top:.5px solid var(--border);
+  text-align:center;color:var(--muted);font-style:italic;font-size:1.02rem;
+}
+
+.cta-row{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  margin-top:3rem;padding-top:2.5rem;border-top:.5px solid var(--border);
+}
+.cta-row a{
+  font-family:'Rajdhani',sans-serif;font-size:.95rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  padding:.95rem 2rem;text-decoration:none;
+  transition:all .2s;
+}
+.cta-primary{background:var(--cyan);color:var(--black);}
+.cta-primary:hover{background:var(--cyan-lo);}
+.cta-secondary{color:var(--muted);border:.5px solid var(--border);}
+.cta-secondary:hover{color:var(--cyan);border-color:var(--cyan-lo);}
+
+footer{
+  margin-top:6rem;padding-top:3rem;
+  border-top:.5px solid var(--border);
+  text-align:center;color:var(--dim);font-size:.95rem;
+}
+footer a{color:var(--muted);text-decoration:none;margin:0 1rem;}
+footer a:hover{color:var(--cyan);}
+
+/* Index/list view */
+.journey-cards{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:1.2rem;margin-top:2.5rem;
+}
+.j-link{
+  display:block;text-decoration:none;color:inherit;
+  padding:1.8rem 1.6rem;border:.5px solid var(--border);
+  background:rgba(255,255,255,.015);border-radius:6px;
+  transition:border-color .2s,background .2s;
+}
+.j-link:hover{
+  border-color:rgba(0,168,158,.4);
+  background:rgba(0,168,158,.04);
+}
+.j-link.free{background:rgba(76,186,104,.04);border-color:rgba(76,186,104,.18);}
+.j-link.free:hover{background:rgba(76,186,104,.08);border-color:rgba(76,186,104,.35);}
+.j-title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.5rem;margin-bottom:.4rem;color:var(--text);
+}
+.j-sub{
+  font-family:'Rajdhani',sans-serif;font-size:.8rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:.8rem;
+}
+.j-desc{color:var(--muted);font-size:.98rem;line-height:1.5;margin-bottom:1rem;}
+.j-badge{
+  font-family:'Rajdhani',sans-serif;font-size:.72rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  padding:.2rem .6rem;border-radius:3px;
+}
+.j-badge.plus{color:var(--cyan-lo);border:1px solid rgba(0,168,158,.3);}
+.j-badge.free-badge{color:var(--green);border:1px solid rgba(76,186,104,.3);}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/"><img src="/assets/images/icon-app.png" alt="Spiral Breath"> Spiral Breath</a>
+  <a class="back" href="/#journeys">← All Journeys</a>
+</nav>
+<div class="wrap">
+  <div style="text-align:center;margin-bottom:2.5rem;">
+    <p class="eyebrow">19 Structured Journeys</p>
+    <h1>A journey is not a playlist.<br><em>It's a structured arc.</em></h1>
+    <p class="lead">5 to 45 days. Each built around one clear outcome. <strong>The First Spiral</strong> is free forever. All 18 Plus journeys unlock with Plus.</p>
+  </div>
+  <div class="journey-cards">
+    <a class="j-link free" href="/journeys/first-spiral/">
+      <div class="j-title">The First Spiral</div>
+      <div class="j-sub">9 Days</div>
+      <div class="j-desc">Nine days to feel the practice. A guided arc through every free preset, in three phases: Foundation, Activation, Integration.</div>
+      <span class="j-badge free-badge">Free Forever</span>
+    </a>
+    <a class="j-link" href="/journeys/featured-calm-regulation/">
+      <div class="j-title">Calm &amp; Regulation</div>
+      <div class="j-sub">7 Days · Featured</div>
+      <div class="j-desc">Seven days to find calm and establish a daily practice. Gentle, grounding presets help you settle in.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/featured-coherence-builder/">
+      <div class="j-title">Coherence Builder</div>
+      <div class="j-sub">30 Days · Featured</div>
+      <div class="j-desc">Thirty days of harmonic breath ratios to build consistent coherence and self-regulation.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/featured-self-love/">
+      <div class="j-title">Self-Love</div>
+      <div class="j-sub">14 Days · Featured</div>
+      <div class="j-desc">Fourteen days of emotional release and self-acceptance. Soften the inner field, return to wholeness.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/featured-wealth-consciousness/">
+      <div class="j-title">Wealth Consciousness</div>
+      <div class="j-sub">30 Days · Featured</div>
+      <div class="j-desc">Thirty days to repair your relationship with abundance. Release scarcity, magnetize flow.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/featured-chakra-integration/">
+      <div class="j-title">Chakra Integration</div>
+      <div class="j-sub">45 Days · Featured</div>
+      <div class="j-desc">Forty-five days through all seven energy centers — a complete energetic balancing.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/featured-purpose-dharma/">
+      <div class="j-title">Purpose &amp; Dharma</div>
+      <div class="j-sub">30 Days · Featured</div>
+      <div class="j-desc">Thirty days of breath to find direction and clarity. The path reveals itself in anchoring.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/first-light/">
+      <div class="j-title">First Light</div>
+      <div class="j-sub">5 Days</div>
+      <div class="j-desc">Five gentle sessions to establish your first breath practice. No prior experience needed — just five minutes a day.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/calm-reset/">
+      <div class="j-title">Calm Reset</div>
+      <div class="j-sub">7 Days</div>
+      <div class="j-desc">Seven days of daily breath practice to find a calmer, more grounded rhythm.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/dawn-practice/">
+      <div class="j-title">Dawn Practice</div>
+      <div class="j-sub">7 Days</div>
+      <div class="j-desc">Seven consecutive mornings of breath practice before 8 am. Build the habit of starting the day with intention.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/evening-ritual/">
+      <div class="j-title">Evening Ritual</div>
+      <div class="j-sub">7 Days</div>
+      <div class="j-desc">Seven evenings of breath practice to close the day and prepare the body for sleep.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/box-breath/">
+      <div class="j-title">Box Breath</div>
+      <div class="j-sub">7 Days</div>
+      <div class="j-desc">Seven days mastering the 4·4·4·4 box breathing pattern — equal inhale, hold, exhale, hold.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/breath-stability/">
+      <div class="j-title">Breath Stability</div>
+      <div class="j-sub">10 Days</div>
+      <div class="j-desc">Ten days building a steady, consistent breathing rhythm through daily repetition.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/coherence-path/">
+      <div class="j-title">Coherence Path</div>
+      <div class="j-sub">10 Days</div>
+      <div class="j-desc">Ten sessions focused on harmonic breath ratios that maximize heart-rate variability and resonance.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/deep-presence/">
+      <div class="j-title">Deep Presence</div>
+      <div class="j-sub">14 Days</div>
+      <div class="j-desc">Fourteen days of deepening meditative anchoring through extended breath sessions.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/resonance-builder/">
+      <div class="j-title">Resonance Builder</div>
+      <div class="j-sub">14 Days</div>
+      <div class="j-desc">Fourteen sessions chasing deep coherence. Each practice refines your ability to sustain harmonic resonance.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/explorer/">
+      <div class="j-title">Explorer&#39;s Circuit</div>
+      <div class="j-sub">14 Days</div>
+      <div class="j-desc">Fourteen days of deliberate variety — try a different preset each session to map your full breath landscape.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/stillness-immersion/">
+      <div class="j-title">Anchoring Immersion</div>
+      <div class="j-sub">21 Days</div>
+      <div class="j-desc">Twenty-one days of practice that includes post-breath stillness in every session. Silence becomes the practice.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+    <a class="j-link" href="/journeys/thirty-day-arc/">
+      <div class="j-title">Thirty Day Arc</div>
+      <div class="j-sub">30 Days</div>
+      <div class="j-desc">One month of unbroken daily practice. A full arc from habit to transformation. The rarest sigil is forged here.</div>
+      <span class="j-badge plus">Plus</span>
+    </a>
+  </div>
+</div>
+<footer>
+  <div style="margin-bottom:1rem;">
+    <a href="/">Home</a>
+    <a href="/presets/">All Presets</a>
+    <a href="/#journeys">All Journeys</a>
+    <a href="/#pricing">Pricing</a>
+  </div>
+  <div style="color:var(--dim);font-size:.85rem;letter-spacing:.15em;">© 2026 Spiral Breath · The practice that remembers.</div>
+</footer>
+</body>
+</html>

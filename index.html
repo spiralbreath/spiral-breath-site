@@ -202,9 +202,12 @@ canvas#hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-even
 }
 .j-card{
   background:var(--black);padding:1.8rem 1.6rem;
-  transition:background .3s;
+  transition:background .3s,border-color .3s;
+  text-decoration:none;color:inherit;display:block;
+  border:.5px solid transparent;
 }
-.j-card:hover{background:var(--surface);}
+.j-card:hover{background:var(--surface);border-color:rgba(0,168,158,.3);}
+.j-free:hover{border-color:rgba(76,186,104,.4)!important;}
 .j-free{background:rgba(76,186,104,.04)!important;border:.5px solid rgba(76,186,104,.15)!important;}
 .j-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--text);margin-bottom:.3rem;}
 .j-meta{font-size:0.92rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
@@ -627,7 +630,7 @@ footer{
     <span class="ticker-item"><span>✦</span> The First Spiral — free forever</span>
     <span class="ticker-item"><span>✦</span> Binaural Solfeggio tones</span>
     <span class="ticker-item"><span>✦</span> Codex Field Mirror</span>
-    <span class="ticker-item"><span>✦</span> 16 structured journeys</span>
+    <span class="ticker-item"><span>✦</span> 19 structured journeys</span>
     <span class="ticker-item"><span>✦</span> Architect+ AI integration</span>
     <span class="ticker-item"><span>✦</span> Your practice, permanently archived</span>
     <span class="ticker-item"><span>✦</span> Every breath leaves a trace</span>
@@ -636,7 +639,7 @@ footer{
     <span class="ticker-item"><span>✦</span> The First Spiral — free forever</span>
     <span class="ticker-item"><span>✦</span> Binaural Solfeggio tones</span>
     <span class="ticker-item"><span>✦</span> Codex Field Mirror</span>
-    <span class="ticker-item"><span>✦</span> 16 structured journeys</span>
+    <span class="ticker-item"><span>✦</span> 19 structured journeys</span>
     <span class="ticker-item"><span>✦</span> Architect+ AI integration</span>
     <span class="ticker-item"><span>✦</span> Your practice, permanently archived</span>
   </div>
@@ -694,30 +697,36 @@ footer{
         <p class="eyebrow reveal" style="margin-bottom:.5rem;">16 Structured Journeys</p>
         <h3 class="reveal d1">A journey is not a playlist.<br><em>It's a structured arc.</em></h3>
       </div>
-      <p class="body reveal d2" style="max-width:320px;text-align:right;">5 to 45 days. Each built around one clear outcome. All 15 Plus journeys unlock with Plus.</p>
+      <p class="body reveal d2" style="max-width:320px;text-align:right;">5 to 45 days. Each built around one clear outcome. All 18 Plus journeys unlock with Plus.</p>
     </div>
   </div>
   <div class="journeys-grid">
-    <div class="j-card j-free">
+    <a class="j-card j-free" href="/journeys/first-spiral/">
       <div class="j-name">The First Spiral</div>
       <div class="j-meta">9 Days · Foundation → Activation → Integration</div>
       <span class="j-badge j-badge-free">Free Forever</span>
-    </div>
-    <div class="j-card"><div class="j-name">Self-Love</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Coherence Builder</div><div class="j-meta">30 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Wealth Consciousness</div><div class="j-meta">30 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Purpose &amp; Dharma</div><div class="j-meta">30 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Chakra Integration</div><div class="j-meta">45 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">First Light</div><div class="j-meta">5 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Calm Reset</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Dawn Practice</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Evening Ritual</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Box Breath</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Deep Presence</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Resonance Builder</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Anchoring Immersion</div><div class="j-meta">21 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Thirty Day Arc</div><div class="j-meta">30 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
-    <div class="j-card"><div class="j-name">Explorer's Circuit</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></div>
+    </a>
+    <a class="j-card" href="/journeys/featured-calm-regulation/"><div class="j-name">Calm &amp; Regulation</div><div class="j-meta">7 Days · Featured</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/featured-self-love/"><div class="j-name">Self-Love</div><div class="j-meta">14 Days · Featured</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/featured-coherence-builder/"><div class="j-name">Coherence Builder</div><div class="j-meta">30 Days · Featured</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/featured-wealth-consciousness/"><div class="j-name">Wealth Consciousness</div><div class="j-meta">30 Days · Featured</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/featured-purpose-dharma/"><div class="j-name">Purpose &amp; Dharma</div><div class="j-meta">30 Days · Featured</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/featured-chakra-integration/"><div class="j-name">Chakra Integration</div><div class="j-meta">45 Days · Featured</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/first-light/"><div class="j-name">First Light</div><div class="j-meta">5 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/calm-reset/"><div class="j-name">Calm Reset</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/dawn-practice/"><div class="j-name">Dawn Practice</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/evening-ritual/"><div class="j-name">Evening Ritual</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/box-breath/"><div class="j-name">Box Breath</div><div class="j-meta">7 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/breath-stability/"><div class="j-name">Breath Stability</div><div class="j-meta">10 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/coherence-path/"><div class="j-name">Coherence Path</div><div class="j-meta">10 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/deep-presence/"><div class="j-name">Deep Presence</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/resonance-builder/"><div class="j-name">Resonance Builder</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/explorer/"><div class="j-name">Explorer's Circuit</div><div class="j-meta">14 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/stillness-immersion/"><div class="j-name">Anchoring Immersion</div><div class="j-meta">21 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+    <a class="j-card" href="/journeys/thirty-day-arc/"><div class="j-name">Thirty Day Arc</div><div class="j-meta">30 Days</div><span class="j-badge j-badge-plus">Plus</span></a>
+  </div>
+  <div class="reveal d2" style="text-align:center;margin-top:2rem;">
+    <a href="/journeys/" style="display:inline-block;font-family:'Rajdhani',sans-serif;font-size:1.05rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan-lo);text-decoration:none;border-bottom:1px solid rgba(0,168,158,.4);padding-bottom:.3rem;">Browse All 19 Journeys →</a>
   </div>
 
   <!-- JOURNEY PHONE SCREENSHOTS -->
@@ -1061,7 +1070,7 @@ footer{
         <div class="pf-list">
           <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Everything in Free — now in full color</span></div>
           <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">All 74 advanced presets — sacred geometry, chakra, manifestation, consciousness, alignment</span></div>
-          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">All 16 journeys — Self-Love, Coherence Builder, Wealth Consciousness, Chakra Integration, Purpose &amp; Dharma, and more</span></div>
+          <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">All 19 journeys — Self-Love, Coherence Builder, Wealth Consciousness, Chakra Integration, Purpose &amp; Dharma, and more</span></div>
           <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Custom journey creation — design your own multi-day arcs</span></div>
           <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Unlimited custom exercises in My Exercises</span></div>
           <div class="pf"><div class="pf-dot pf-dot-plus"></div><span class="pf-text">Full-color sigils, glyphs, Breath Map, and Archive — every artifact in color</span></div>

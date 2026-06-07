@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Presence · 14 Day Journey · Spiral Breath</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=5">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=5">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=5">
+<meta name="theme-color" content="#020205">
+<meta name="description" content="Fourteen days of deepening meditative anchoring through extended breath sessions. 14-day breathwork journey on Spiral Breath.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --black:#020205;
+  --deep:#06060f;
+  --surface:#0c0c1a;
+  --cyan:#00d4c8;
+  --cyan-lo:#00a89e;
+  --gold:#c8a84b;
+  --green:#4cba68;
+  --text:#f0ede4;
+  --muted:#a8a49a;
+  --dim:#5a5852;
+  --border:rgba(200,168,75,0.1);
+}
+body{
+  background:var(--black);color:var(--text);
+  font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.6;
+  font-size:17px;padding:5rem 1.5rem 6rem;
+}
+.wrap{max-width:1100px;margin:0 auto;}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2rem;background:rgba(2,2,5,.92);
+  backdrop-filter:blur(20px);border-bottom:.5px solid rgba(255,255,255,.04);
+}
+.nav a{color:var(--text);text-decoration:none;font-family:'Rajdhani',sans-serif;
+  font-size:1.05rem;letter-spacing:.30em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.7rem;}
+.nav img{width:42px;height:42px;border-radius:5px;}
+.nav .back{font-size:.88rem;letter-spacing:.18em;color:var(--muted);}
+.nav .back:hover{color:var(--cyan);}
+
+.eyebrow{
+  font-family:'Rajdhani',sans-serif;font-size:1rem;
+  letter-spacing:.45em;text-transform:uppercase;
+  color:var(--cyan-lo);margin-bottom:1rem;
+}
+h1{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(2.4rem,5vw,3.8rem);letter-spacing:-.01em;
+  line-height:1.05;margin-bottom:1rem;
+}
+h1 em{font-style:italic;color:var(--cyan-lo);}
+.lead{color:var(--muted);font-size:1.15rem;max-width:720px;margin:0 auto;}
+
+.meta-row{
+  display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;
+  margin-top:1.6rem;font-family:'Rajdhani',sans-serif;
+  font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);
+}
+.meta-row span{display:inline-flex;align-items:center;gap:.5rem;}
+.meta-row .dot{width:8px;height:8px;border-radius:50%;}
+.badge-plus{color:var(--cyan-lo);border:1px solid rgba(0,168,158,.3);padding:.25rem .75rem;}
+.badge-free{color:var(--green);border:1px solid rgba(76,186,104,.3);padding:.25rem .75rem;}
+
+.section-title{
+  font-family:'Rajdhani',sans-serif;font-size:.95rem;
+  letter-spacing:.35em;text-transform:uppercase;
+  color:var(--muted);margin:3.5rem 0 1.5rem;text-align:center;
+  padding-top:2rem;border-top:.5px solid var(--border);
+}
+
+/* Day-by-day arc (First Spiral only) */
+.day-list{display:flex;flex-direction:column;gap:1.2rem;}
+.day-row{
+  display:grid;grid-template-columns:80px 140px 1fr;gap:1.5rem;
+  padding:1.4rem 1.5rem;background:rgba(255,255,255,.015);
+  border:.5px solid var(--border);border-radius:6px;
+  align-items:start;
+}
+.day-num{
+  font-family:'Rajdhani',sans-serif;font-weight:500;
+  font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);
+}
+.day-phase{
+  font-family:'Rajdhani',sans-serif;font-size:.8rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+}
+.day-content{}
+.day-preset{
+  font-family:'Cormorant Garamond',serif;font-size:1.35rem;
+  font-style:italic;color:var(--text);margin-bottom:.3rem;
+}
+.day-focus{color:var(--muted);font-size:.98rem;line-height:1.55;}
+.day-intent{
+  display:inline-block;margin-top:.5rem;
+  font-family:'Rajdhani',sans-serif;font-size:.78rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--cyan-lo);
+}
+
+@media(max-width:680px){
+  .day-row{grid-template-columns:1fr;gap:.4rem;padding:1.2rem;}
+}
+
+/* Preset pool list (other journeys) */
+.preset-pool{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.8rem;
+}
+.preset-pool a{
+  display:block;padding:1rem 1.25rem;
+  border:.5px solid var(--border);border-radius:6px;
+  background:rgba(255,255,255,.015);
+  font-family:'Cormorant Garamond',serif;font-size:1.15rem;
+  font-style:italic;color:var(--text);text-decoration:none;
+  transition:border-color .2s,background .2s;
+}
+.preset-pool a:hover{
+  border-color:rgba(0,168,158,.35);
+  background:rgba(0,168,158,.04);
+}
+.pool-note{
+  text-align:center;color:var(--dim);font-style:italic;
+  margin-bottom:1.5rem;font-size:1rem;
+}
+
+.hint-box{
+  margin-top:3rem;padding:1.5rem 2rem;
+  border-top:.5px solid var(--border);
+  text-align:center;color:var(--muted);font-style:italic;font-size:1.02rem;
+}
+
+.cta-row{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  margin-top:3rem;padding-top:2.5rem;border-top:.5px solid var(--border);
+}
+.cta-row a{
+  font-family:'Rajdhani',sans-serif;font-size:.95rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  padding:.95rem 2rem;text-decoration:none;
+  transition:all .2s;
+}
+.cta-primary{background:var(--cyan);color:var(--black);}
+.cta-primary:hover{background:var(--cyan-lo);}
+.cta-secondary{color:var(--muted);border:.5px solid var(--border);}
+.cta-secondary:hover{color:var(--cyan);border-color:var(--cyan-lo);}
+
+footer{
+  margin-top:6rem;padding-top:3rem;
+  border-top:.5px solid var(--border);
+  text-align:center;color:var(--dim);font-size:.95rem;
+}
+footer a{color:var(--muted);text-decoration:none;margin:0 1rem;}
+footer a:hover{color:var(--cyan);}
+
+/* Index/list view */
+.journey-cards{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:1.2rem;margin-top:2.5rem;
+}
+.j-link{
+  display:block;text-decoration:none;color:inherit;
+  padding:1.8rem 1.6rem;border:.5px solid var(--border);
+  background:rgba(255,255,255,.015);border-radius:6px;
+  transition:border-color .2s,background .2s;
+}
+.j-link:hover{
+  border-color:rgba(0,168,158,.4);
+  background:rgba(0,168,158,.04);
+}
+.j-link.free{background:rgba(76,186,104,.04);border-color:rgba(76,186,104,.18);}
+.j-link.free:hover{background:rgba(76,186,104,.08);border-color:rgba(76,186,104,.35);}
+.j-title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.5rem;margin-bottom:.4rem;color:var(--text);
+}
+.j-sub{
+  font-family:'Rajdhani',sans-serif;font-size:.8rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:.8rem;
+}
+.j-desc{color:var(--muted);font-size:.98rem;line-height:1.5;margin-bottom:1rem;}
+.j-badge{
+  font-family:'Rajdhani',sans-serif;font-size:.72rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  padding:.2rem .6rem;border-radius:3px;
+}
+.j-badge.plus{color:var(--cyan-lo);border:1px solid rgba(0,168,158,.3);}
+.j-badge.free-badge{color:var(--green);border:1px solid rgba(76,186,104,.3);}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/"><img src="/assets/images/icon-app.png" alt="Spiral Breath"> Spiral Breath</a>
+  <a class="back" href="/#journeys">← All Journeys</a>
+</nav>
+<div class="wrap">
+  <div style="text-align:center;margin-bottom:3rem;">
+    <p class="eyebrow">A 14-Day Journey</p>
+    <h1>Deep Presence</h1>
+    <p class="lead">Fourteen days of deepening meditative anchoring through extended breath sessions.</p>
+    <div class="meta-row">
+      <span><span class="dot" style="background:#aa88ff;"></span>14 Days</span>
+      <span class="badge-plus">Plus</span>
+    </div>
+  </div>
+  
+  <div class="section-title">A Daily Practice</div>
+  <p class="pool-note">Any session counts toward this journey. Show up, breathe, log your sigil.</p>
+  <div class="hint-box">Longer sessions with post-breath anchoring encouraged.</div>
+  <div class="cta-row">
+    <a class="cta-primary" href="/#pricing">Unlock with Plus</a>
+    <a class="cta-secondary" href="/#journeys">View All Journeys</a>
+  </div>
+</div>
+<footer>
+  <div style="margin-bottom:1rem;">
+    <a href="/">Home</a>
+    <a href="/presets/">All Presets</a>
+    <a href="/#journeys">All Journeys</a>
+    <a href="/#pricing">Pricing</a>
+  </div>
+  <div style="color:var(--dim);font-size:.85rem;letter-spacing:.15em;">© 2026 Spiral Breath · The practice that remembers.</div>
+</footer>
+</body>
+</html>
