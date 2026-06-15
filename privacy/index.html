@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> </title>
+<title>Privacy Policy · Spiral Breath+</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=5">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=5">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=5">
@@ -159,16 +159,16 @@ footer a:hover{color:var(--cyan);}
 
 <h3>Microphone use (live processing only)</h3>
 
-<p>When you start a breath session, the app accesses your device microphone to detect when you are inhaling and exhaling. This is how Breath Lock scoring works — the app meets your actual breath rhythm. The audio is:</p>
+<p>When you start a breath session, the app accesses your device microphone to detect when you are inhaling and exhaling. This is how Breath Lock scoring and your real-time coherence score work — the app meets your actual breath rhythm. The audio is:</p>
 
 <ul>
-<li>Processed entirely in memory in real time</li>
-<li><strong>Never recorded to disk</strong></li>
+<li>Processed entirely on your device to compute an amplitude envelope</li>
+<li>Written briefly to a temporary file (iOS requires this for the recorder API) that is <strong>deleted automatically at session end</strong> (and on pause, background, or early end)</li>
 <li><strong>Never transmitted</strong> to us or any third party</li>
 <li><strong>Never used for speech recognition</strong> or identification of any kind</li>
 </ul>
 
-<p>When the session ends, the microphone stream closes. No audio file is created.</p>
+<p>When the session ends, the microphone stream closes and the temporary file is removed. Nothing persists on disk.</p>
 
 <h3>Anonymous product analytics (Aptabase)</h3>
 
