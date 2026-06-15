@@ -128,7 +128,7 @@ footer a:hover{color:var(--cyan);}
 <main class="wrap">
 <h1>Privacy Policy</h1>
 
-<p class="effective"><strong>Effective date: June 4, 2026</strong></p>
+<p class="effective"><strong>Effective date: June 15, 2026</strong></p>
 
 <p>This policy describes what data Spiral Breath+ collects, how that data is used, and what choices you have. The short version: we built Spiral Breath+ to keep your practice private. Almost nothing leaves your phone.</p>
 
@@ -136,7 +136,7 @@ footer a:hover{color:var(--cyan);}
 
 <h2>In one paragraph</h2>
 
-<p>Spiral Breath+ is a local-first app. Your breath sessions, sigils, journeys, custom presets, and Breath Map all live in storage on your device. We do not run analytics SDKs. We do not track you across apps or websites. We do not have user accounts or servers that hold your data. The app uses your microphone during a session to detect inhale and exhale — that audio is processed in memory only and is never recorded, stored, or transmitted. The only third party we work with for any user data is Apple, who handles your subscription billing and downloads through the App Store.</p>
+<p>Spiral Breath+ is a local-first app. Your breath sessions, sigils, journeys, custom presets, and Breath Map all live in storage on your device. We count six anonymous events through Aptabase, a privacy-preserving analytics service, so we can tell whether the app is working — no user identifier, no IDFA, no IP address, no breath data, no affirmations. We do not track you across apps or websites. We do not have user accounts or servers that hold your data. The app uses your microphone during a session to detect inhale and exhale — that audio is processed in memory only and is never recorded, stored, or transmitted. The third parties we work with for any user data are Apple (subscription billing and App Store downloads) and Aptabase (anonymous event counts only).</p>
 
 <hr/>
 
@@ -169,6 +169,23 @@ footer a:hover{color:var(--cyan);}
 </ul>
 
 <p>When the session ends, the microphone stream closes. No audio file is created.</p>
+
+<h3>Anonymous product analytics (Aptabase)</h3>
+
+<p>Spiral Breath+ uses <a href="https://aptabase.com" target="_blank" rel="noopener">Aptabase</a>, a privacy-preserving analytics service, to count six events so we can tell whether the app is working:</p>
+
+<ul>
+<li><code>onboarding_completed</code> — the tutorial was finished</li>
+<li><code>session_started</code> — a breath session began</li>
+<li><code>session_completed</code> — a breath session ended successfully</li>
+<li><code>journey_started</code> — a multi-day journey was started</li>
+<li><code>share_card_shared</code> — a share card was generated</li>
+<li><code>subscription_started</code> — a Plus subscription was purchased</li>
+</ul>
+
+<p>Each event carries a short set of categorical labels — preset name, coherence label (e.g. "Flowing"), journey id, free-vs-Plus flag, and rounded session length. Aptabase identifies your install only by an anonymous device hash they compute on their server; we never see it and it cannot be cross-referenced to you. The full event schema lives in <code>src/analytics/aptabase.js</code> in the app source.</p>
+
+<p>What is <strong>not</strong> sent to Aptabase: user identifier, IDFA, IP address (Aptabase hashes it server-side and discards it), breath audio, affirmations or reflections you write, session timestamps, advertising data.</p>
 
 <h3>Apple App Store data (handled by Apple)</h3>
 
