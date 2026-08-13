@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "7PV5DCSPWN.com.spiralbreath.plus",
+        "paths": [ "/import/*" ],
+        "appIDs": [ "7PV5DCSPWN.com.spiralbreath.plus" ],
+        "components": [
+          {
+            "/": "/import/*",
+            "comment": "Share-card QR — opens the exercise in Spiral Breath+"
+          }
+        ]
+      }
+    ]
+  }
+}
