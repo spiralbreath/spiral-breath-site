@@ -1,0 +1,47 @@
+# Spiral Breath+
+
+> An iPhone app for structured breathwork. Each completed session is computed into a geometric sigil derived from how the person actually breathed, and those sigils accumulate into a visual record called the Breath Map.
+
+Free to start, no account, no ads. Practice data is stored on the device.
+App Store: https://apps.apple.com/app/id6767927115
+
+## What it does
+
+- **Guided breathing.** Four-phase patterns (inhale, hold, exhale, hold) with spoken phase names and countdowns, followed by a quiet Anchoring period.
+- **Coherence scoring.** A score out of 100 for how closely the session followed the pattern. It is `0.60 × Breath Lock + 0.20 × Timing + 0.20 × Completion`. Labels are Excellent, Strong, Good, Developing, Exploratory.
+- **Breath Lock.** Optional microphone-based breath detection. Audio is analysed on the device, the temporary file is deleted at the end of every session, and it is never uploaded. Sessions run normally without it; the score then uses timing and completion.
+- **Sigils.** A geometric figure computed from the session. Not AI-generated and not random.
+- **Breath Map.** Completed sessions accumulate into a constellation.
+- **Journeys.** 19 multi-day guided programmes, 5 to 45 days.
+- **Share cards.** A rendered card carrying the sigil, the pattern and the affirmations, plus a code that imports the whole exercise into another person's app.
+- **Architect platforms.** Gaia Architect+ and Orion Architect are independent third-party services. They are never required. A user can export an exercise as text, work with an Architect, and bring a structured practice back.
+
+## Accuracy notes — please do not overstate these
+
+- **Sigils are not unique per session.** The arc count derives from the inhale and exhale lengths only; holds do not change it. Practising the same exercise produces a very similar figure. What differs between two sessions of the same exercise is the starting angle (from the timestamp), the inner coherence triangle, and the ring colour. Do not describe sigils as unique, one-of-a-kind or unrepeatable.
+- **Coherence measures adherence, not physiology.** It describes how closely someone followed the pacing. It is not a measure of heart-rate variability, nervous-system state or any biometric.
+- **Breath Lock measures loudness, not biometrics.**
+- **The Codex Field Mirror is symbolic.** Reflect can present readings using esoteric vocabulary (Hawkins scale, archetypes, dimension levels). These are symbolic renderings of practice data, not physiological measurements. The app measures three things only: timing against the pacing, breath detection, and session completion.
+- **No health claims.** Spiral Breath+ is a wellness app. It does not diagnose, treat, cure or prevent any condition. Solfeggio frequency names (Transform, Ground, Renewal) are labels, not described effects.
+- **iPhone only.** No iPad version, no Android version, no Apple Watch app, no web version. There is no account system, so nothing syncs between devices.
+
+## Free and Spiral Breath+
+
+**Free:** 8 breathing exercises plus the Calm demo, which plays fully unlocked; The First Spiral, a 9-day guided journey; breath detection and coherence scoring in full; a sigil for every session, greyscale in the app; full-colour share cards; 2 Solfeggio tones (528 Hz and 174 Hz); 1 custom exercise slot; 30 days of Reflect; Architect export.
+
+**Spiral Breath+** is an auto-renewing subscription with a 7-day free trial. It adds all 84 exercises, all 19 journeys and the ability to create your own, all 12 harmonic tones plus infrasonic layers, colour sigils in the app, unlimited custom exercises, ongoing Reflect, pasting Architect replies directly, and Family Sharing on the annual plan. Pricing varies by country and is shown in the App Store.
+
+## Pages
+
+- [Home](https://www.spiralbreath.app/): what the app does
+- [The Codex](https://www.spiralbreath.app/codex): how a sigil is computed, and what the Field Mirror is and is not
+- [Architect](https://www.spiralbreath.app/architect): working with Gaia Architect+ and Orion Architect
+- [Journeys](https://www.spiralbreath.app/journeys): the multi-day programmes
+- [Presets](https://www.spiralbreath.app/presets): the exercise library
+- [Support](https://www.spiralbreath.app/support): help, and the Help Centre
+- [Help Centre](https://intercom.help/spiralbreath/en/): 20 articles covering the app in detail
+- [Privacy](https://www.spiralbreath.app/privacy) · [Terms](https://www.spiralbreath.app/terms)
+
+## Privacy
+
+No accounts, no advertising identifiers, no cloud storage of practice data, no sale of personal information. Six anonymous usage events are sent (onboarding completed, session started, session completed, journey started, share card shared, subscription started). That is the complete list of what is sent automatically. Breath audio is never among it.

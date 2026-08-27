@@ -1,0 +1,9 @@
+# Spiral Breath+ — https://www.spiralbreath.app
+User-agent: *
+Allow: /
+
+# Encoded exercise payloads. Every /import/<payload> URL renders the same
+# page, so they are duplicates with no independent value to a search index.
+Disallow: /import/
+
+Sitemap: https://www.spiralbreath.app/sitemap.xml
