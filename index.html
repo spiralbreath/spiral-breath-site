@@ -32,25 +32,47 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Spiral Breath+",
-    "url": "https://www.spiralbreath.app/",
-    "downloadUrl": "https://apps.apple.com/app/id6767927115",
-    "installUrl": "https://apps.apple.com/app/id6767927115",
-    "applicationCategory": "HealthApplication",
-    "applicationSubCategory": "Breathwork and meditation",
-    "operatingSystem": "iOS 15.1 or later",
-    "image": "https://www.spiralbreath.app/assets/images/og-image.png",
-    "description": "Structured breathwork for iPhone. Real-time breath detection, coherence scored every session, and a sigil computed from how you actually breathed. Free to start, no account required, practice data stays on the device.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "description": "Free to start, with an optional Spiral Breath+ subscription"
-    },
-    "author": { "@type": "Organization", "name": "Spiral Breath" },
-    "publisher": { "@type": "Organization", "name": "Spiral Breath" }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.spiralbreath.app/#organization",
+        "name": "Spiral Breath",
+        "url": "https://www.spiralbreath.app/",
+        "logo": "https://www.spiralbreath.app/assets/images/logo.png",
+        "description": "Maker of Spiral Breath+, a structured breathwork app for iPhone.",
+        "sameAs": [
+          "https://www.instagram.com/spiralbreath.app/",
+          "https://www.tiktok.com/@spiralbreath.app",
+          "https://www.youtube.com/@SpiralBreathapp"
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Spiral Breath+",
+        "url": "https://www.spiralbreath.app/",
+        "downloadUrl": "https://apps.apple.com/app/id6767927115",
+        "installUrl": "https://apps.apple.com/app/id6767927115",
+        "applicationCategory": "HealthApplication",
+        "applicationSubCategory": "Breathwork and meditation",
+        "operatingSystem": "iOS 15.1 or later",
+        "image": "https://www.spiralbreath.app/assets/images/og-image.png",
+        "description": "Structured breathwork for iPhone. Real-time breath detection, coherence scored every session, and a sigil computed from how you actually breathed. Free to start, no account required, practice data stays on the device.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "description": "Free to start, with an optional Spiral Breath+ subscription"
+        },
+        "author": {
+          "@id": "https://www.spiralbreath.app/#organization"
+        },
+        "publisher": {
+          "@id": "https://www.spiralbreath.app/#organization"
+        },
+        "@id": "https://www.spiralbreath.app/#app"
+      }
+    ]
   }
   </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
